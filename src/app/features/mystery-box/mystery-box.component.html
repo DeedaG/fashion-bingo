@@ -1,0 +1,11 @@
+<div class="box-area">
+  <button (click)="openBox()" [disabled]="isOpening">Open Mystery Box</button>
+</div>
+
+<div *ngIf="reward" class="reward-popup">
+  <h2>{{reward.rarity}} Reward!</h2>
+  <img [src]="reward.clothing.imageUrl" />
+  <p>{{reward.clothing.name}}</p>
+  <p>Coins: +{{reward.coins}}</p>
+  <p *ngIf="reward.gems > 0">Gems: +{{reward.gems}}</p>
+</div>

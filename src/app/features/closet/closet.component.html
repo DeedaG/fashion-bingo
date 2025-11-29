@@ -1,0 +1,14 @@
+<h2>Your Closet</h2>
+<div class="closet-items">
+  <div *ngFor="let item of closet">
+    <span>{{item.name}}</span>
+    <button (click)="equipItem(item)">Equip</button>
+  </div>
+</div>
+
+<h2>Mannequin</h2>
+<div class="mannequin">
+  <div *ngFor="let type of Object.keys(mannequin.equippedItems)">
+    {{type}}: {{mannequin.equippedItems[type].name}}
+  </div>
+</div>

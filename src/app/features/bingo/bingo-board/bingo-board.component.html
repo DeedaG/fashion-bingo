@@ -1,0 +1,10 @@
+<div class="bingo-grid">
+  <div *ngFor="let row of card">
+    <span *ngFor="let num of row">{{num}}</span>
+  </div>
+</div>
+
+<button (click)="onWin()">Claim Reward</button>
+<div *ngIf="reward">
+  <p>Reward: {{reward?.name}} ({{reward?.rarity}})</p>
+</div>

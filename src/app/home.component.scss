@@ -1,0 +1,32 @@
+.home-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  button {
+    padding: 18px;
+    font-size: 20px;
+    border-radius: 12px;
+    background: #ff66aa;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      transform: scale(1.05);
+      background: #ff4d99;
+    }
+  }
+}

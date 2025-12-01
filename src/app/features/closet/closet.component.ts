@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ClosetService } from '../../core/services/closet.service';
 import { ClothingItem } from '../../core/models/clothing-item.model';
 import { Mannequin } from '../../core/models/mannequin.model';
+import { FilterByTypePipe } from '../../shared/pipes/filter-by-type.pipe';
 
 @Component({
   selector: 'app-closet',
+  standalone: true,
+  imports: [CommonModule, FilterByTypePipe],
   templateUrl: './closet.component.html',
-  styleUrls: ['./closet.component.scss']
+  styleUrls: ['./closet.component.css']
 })
 export class ClosetComponent implements OnInit {
   closet: ClothingItem[] = [];
   mannequin: Mannequin = { equippedItems: {} };
-  playerId = 'some-player-id';
+  playerId = '';
+  filterType: string = 'all';
 
   constructor(private closetService: ClosetService) {}
 
@@ -20,6 +25,10 @@ export class ClosetComponent implements OnInit {
   }
 
   loadCloset(): void {
+    if(!this.playerId){
+      this.closet = [];
+      return; 
+    };
     this.closetService.getCloset(this.playerId).subscribe(items => this.closet = items);
   }
 

@@ -1,14 +1,37 @@
 <h2>Your Closet</h2>
-<div class="closet-items">
-  <div *ngFor="let item of closet">
-    <span>{{item.name}}</span>
+
+<!-- Filter Bar (optional) -->
+<div class="filter-bar">
+  <button (click)="filterType='all'" [class.active]="filterType==='all'">All</button>
+  <button (click)="filterType='Shirt'" [class.active]="filterType==='Shirt'">Shirts</button>
+  <button (click)="filterType='Pants'" [class.active]="filterType==='Pants'">Pants</button>
+  <button (click)="filterType='Shoes'" [class.active]="filterType==='Shoes'">Shoes</button>
+  <button (click)="filterType='Hat'" [class.active]="filterType==='Hat'">Hats</button>
+  <button (click)="filterType='Accessory'" [class.active]="filterType==='Accessory'">Accessories</button>
+</div>
+
+<!-- Closet Grid -->
+<div class="closet-items-grid">
+  <div *ngFor="let item of closet | filterByType: filterType" class="closet-item">
+    <img [src]="item.imageUrl" [alt]="item.name" />
+    <p>{{ item.name }}</p>
+    <p>{{ item.rarity }}</p>
     <button (click)="equipItem(item)">Equip</button>
   </div>
 </div>
 
 <h2>Mannequin</h2>
-<div class="mannequin">
-  <div *ngFor="let type of Object.keys(mannequin.equippedItems)">
-    {{type}}: {{mannequin.equippedItems[type].name}}
+
+<div class="mannequin-display">
+  <div class="mannequin-body">
+    <!-- Base avatar -->
+    <div class="base-avatar"></div>
+
+    <!-- Equipped layers -->
+    <img *ngIf="mannequin.equippedItems['Shirt']" [src]="mannequin.equippedItems['Shirt'].imageUrl" class="layer shirt" />
+    <img *ngIf="mannequin.equippedItems['Pants']" [src]="mannequin.equippedItems['Pants'].imageUrl" class="layer pants" />
+    <img *ngIf="mannequin.equippedItems['Shoes']" [src]="mannequin.equippedItems['Shoes'].imageUrl" class="layer shoes" />
+    <img *ngIf="mannequin.equippedItems['Hat']" [src]="mannequin.equippedItems['Hat'].imageUrl" class="layer hat" />
+    <img *ngIf="mannequin.equippedItems['Accessory']" [src]="mannequin.equippedItems['Accessory'].imageUrl" class="layer accessory" />
   </div>
 </div>

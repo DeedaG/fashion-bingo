@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LeaderboardService } from '../../core/services/leaderboard.service';
-import { Player } from '../../core/models/player.model';
+import { LeaderboardService } from '../../../core/services/leaderboard.service';
+import { Player } from '../../../core/models/player.model';
 
 @Component({
   selector: 'app-leaderboard',
   templateUrl: './leaderboard.component.html',
-  styleUrls: ['./leaderboard.component.scss']
+  styleUrls: ['./leaderboard.component.css']
 })
 export class LeaderboardComponent implements OnInit {
   leaderboard: Player[] = [];

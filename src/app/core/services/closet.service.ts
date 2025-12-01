@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ClothingItem } from '../models/clothing-item.model';
 import { Mannequin } from '../models/mannequin.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClosetService {
-  private baseUrl = 'https://localhost:5001/api/closet';
+  private baseUrl = environment.apiUrl +  '/closet';
 
   constructor(private http: HttpClient) { }
 

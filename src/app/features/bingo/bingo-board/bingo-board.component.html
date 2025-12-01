@@ -1,10 +1,78 @@
-<div class="bingo-grid">
-  <div *ngFor="let row of card">
-    <span *ngFor="let num of row">{{num}}</span>
+<div class="bingo-screen">
+  <h2 class="bingo-title">Fashion Bingo</h2>
+<h4>Fashion Bingo TEST</h4>
+<div class="caller-box">
+  <div class="current-number">
+    <p class="label">Now Calling</p>
+    <div class="number-ball">
+      {{ currentNumber || '—' }}
+    </div>
+  </div>
+
+  <div class="powerup-bar">
+  <button class="powerup-btn" (click)="activateFreeDaub()">Free Daub</button>
+
+  <button class="powerup-btn" (click)="activateReveal()">Reveal 3</button>
+
+  <button class="powerup-btn" 
+          [class.active]="autoDaubActive"
+          (click)="activateAutoDaub()">
+    Auto Daub (30s)
+  </button>
+</div>
+
+<div *ngIf="revealedNumbers.length > 0" class="reveal-box">
+  <p>Upcoming Numbers:</p>
+  <div class="reveal-list">
+    <div *ngFor="let n of revealedNumbers" class="reveal-ball">{{ n }}</div>
   </div>
 </div>
 
-<button (click)="onWin()">Claim Reward</button>
-<div *ngIf="reward">
-  <p>Reward: {{reward?.name}} ({{reward?.rarity}})</p>
+
+  <div class="history-box">
+    <p class="label">Previous Numbers</p>
+    <div class="history-strip">
+      <div *ngFor="let num of callHistory" class="history-ball">
+        {{ num }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="multi-card-container">
+  <div class="bingo-card" *ngFor="let card of cards; let i = index">
+    <div class="card-title">Card {{ i + 1 }}</div>
+
+    <div class="bingo-grid">
+      <div *ngFor="let row of card" class="row">
+        <div
+          *ngFor="let num of row"
+          class="cell"
+          [class.marked]="isMarked(num, i)"
+          (click)="toggleMark(num, i)"
+        >
+          {{ num }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- <div class="bingo-grid">
+    <div
+      *ngFor="let num of row"
+      class="cell"
+      [class.marked]="isMarked(num)"
+      (click)="toggleMark(num)">
+        {{ num }}
+    </div>
+  </div> -->
+  <button class="win-btn" (click)="onWin()">Claim Reward</button>
+
+  <div *ngIf="reward" class="reward-box">
+    <p class="reward-name">Reward: {{ reward.name }}</p>
+    <p class="reward-rarity">Rarity: {{ reward.rarity }}</p>
+  </div>
 </div>

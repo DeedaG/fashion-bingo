@@ -1,0 +1,275 @@
+.bingo-screen {
+  padding: 20px;
+  text-align: center;
+}
+
+.bingo-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #ff66aa;
+  font-weight: bold;
+}
+
+.bingo-grid {
+  display: inline-block;
+  padding: 10px;
+  background: white;
+  border-radius: 16px;
+  border: 3px solid #ffb5d8;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  margin: 4px;
+  background: #fff2f8;
+  border-radius: 10px;
+  border: 2px solid #ff99cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.cell:hover {
+  transform: scale(1.08);
+  background: #ffe0f0;
+  border-color: #ff66aa;
+}
+
+/* ⭐ NEW: marked cell look */
+.cell.marked {
+  background: #ff66aa;
+  color: white;
+  border-color: #ff2e85;
+  transform: scale(1.05);
+}
+
+.win-btn {
+  padding: 14px 28px;
+  background: #ff66aa;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.2s;
+}
+
+.win-btn:hover {
+  background: #ff4d99;
+  transform: scale(1.05);
+}
+
+.reward-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid #ff99cc;
+}
+
+.reward-name {
+  font-weight: bold;
+  font-size: 22px;
+  color: #ff66aa;
+}
+
+.reward-rarity {
+  font-size: 16px;
+  color: #444;
+}
+
+/* NUMBER CALLER UI */
+.caller-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 40px;
+}
+
+.label {
+  font-size: 14px;
+  color: #ff66aa;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.number-ball {
+  width: 90px;
+  height: 90px;
+  background: #ff66aa;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 38px;
+  font-weight: bold;
+  border: 4px solid #ffb5d8;
+  box-shadow: 0px 3px 8px rgba(0,0,0,0.15);
+  animation: pop-in 0.3s ease;
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.history-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.history-strip {
+  display: flex;
+  gap: 8px;
+  height: 70px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.history-ball {
+  width: 45px;
+  height: 45px;
+  background: #ffe0f0;
+  border-radius: 50%;
+  border: 2px solid #ff99cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.powerup-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.powerup-btn {
+  padding: 10px 18px;
+  background: #ffe0f0;
+  border: 2px solid #ff99cc;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+  color: #ff66aa;
+  font-weight: bold;
+}
+
+.powerup-btn:hover {
+  background: #ffb5d8;
+  transform: scale(1.05);
+}
+
+.powerup-btn.active {
+  background: #ff66aa;
+  color: white;
+  border-color: #ff2e85;
+}
+
+.reveal-box {
+  background: white;
+  border: 2px solid #ff99cc;
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.reveal-list {
+  display: flex;
+  gap: 10px;
+}
+
+.reveal-ball {
+  width: 50px;
+  height: 50px;
+  background: #fff2f8;
+  border-radius: 50%;
+  border: 2px solid #ff99cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.multi-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.bingo-card {
+  background: white;
+  border-radius: 16px;
+  border: 3px solid #ffb5d8;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #ff66aa;
+}
+
+.bingo-grid {
+  display: inline-block;
+  padding: 5px;
+  background: #fff2f8;
+  border-radius: 12px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  margin: 3px;
+  background: #fff2f8;
+  border-radius: 8px;
+  border: 2px solid #ff99cc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.cell:hover {
+  transform: scale(1.08);
+  background: #ffe0f0;
+  border-color: #ff66aa;
+}
+
+.cell.marked {
+  background: #ff66aa;
+  color: white;
+  border-color: #ff2e85;
+  transform: scale(1.05);
+}
+

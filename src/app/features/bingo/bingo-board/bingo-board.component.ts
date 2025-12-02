@@ -31,7 +31,7 @@ export class BingoBoardComponent implements OnInit {
   constructor(private bingoService: BingoService, private closetService: ClosetService) {}
 
   ngOnInit(): void {
-    this.loadCard();
+    this.loadCards(3);
     this.startCaller();
   }
 
@@ -43,16 +43,16 @@ export class BingoBoardComponent implements OnInit {
   }
 
   loadCards(count: number): void {
-  this.cards = [];
-  this.markedNumbersPerCard = [];
+    this.cards = [];
+    this.markedNumbersPerCard = [];
 
-  for (let i = 0; i < count; i++) {
-    this.bingoService.getNewCard().subscribe(card => {
-      this.cards[i] = card;
-      this.markedNumbersPerCard[i] = new Set<number>();
-    });
+    for (let i = 0; i < count; i++) {
+      this.bingoService.getNewCard().subscribe(card => {
+        this.cards[i] = card;
+        this.markedNumbersPerCard[i] = new Set<number>();
+      });
+    }
   }
-}
 
   toggleMark(num: number, cardIndex: number): void {
     const markedNumbers = this.markedNumbersPerCard[cardIndex];
@@ -90,6 +90,7 @@ export class BingoBoardComponent implements OnInit {
       });
     });
   }
+  
 
 
   startCaller(): void {

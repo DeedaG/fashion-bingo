@@ -8,8 +8,8 @@ import { ClosetComponent } from './features/closet/closet.component';
   selector: 'app-root',
   standalone: true,
   imports: [
-    CommonModule,       // ✅ for *ngIf, *ngFor
-    HttpClientModule, 
+    CommonModule,
+    HttpClientModule,
     BingoBoardComponent,
     ClosetComponent
   ],
@@ -18,4 +18,5 @@ import { ClosetComponent } from './features/closet/closet.component';
 })
 export class AppComponent {
   title = 'fashion-bingo';
+  playerId = ''; // current player id shared between components
 }

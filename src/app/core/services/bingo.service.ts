@@ -17,7 +17,8 @@ export class BingoService {
   }
 
   claimReward(playerId: string): Observable<ClothingItem> {
-    return this.http.post<ClothingItem>(`${this.baseUrl}/claimreward`, playerId);
+    // Fix: send playerId as JSON object, not as a raw string
+    return this.http.post<ClothingItem>(`${this.baseUrl}/claimreward`, { playerId });
   }
 
   getNextNumber(): Observable<number> {

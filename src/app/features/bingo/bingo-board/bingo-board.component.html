@@ -1,5 +1,9 @@
 <div class="bingo-screen">
-  <h2 class="bingo-title">Fashion Bingo</h2>
+
+  <div *ngIf="demoMode" style="margin-bottom:12px; color:#555;">
+    <strong class="demo-mode">Demo mode:</strong> Numbers are auto-marked so you can see how bingo works.<br>
+    Click <button class="start-game-btn" (click)="startGame()">Start Game</button> to play manually.
+  </div>
 
 <div class="caller-box">
   <div class="current-number">
@@ -55,24 +59,43 @@
         </div>
       </div>
     </div>
+
+    <!-- Show BINGO! overlay/message if this card has bingo and not yet claimed -->
+    <div *ngIf="bingoDetected[i] && !claimedCards[i]" class="bingo-indicator">
+      🎉 <strong>BINGO!</strong> <br>
+      <button class="win-btn" (click)="claimReward(i)">Claim Reward</button>
+    </div>
+    <!-- Show claimed message if already claimed -->
+    <div *ngIf="claimedCards[i]" class="claimed-indicator">
+      ✅ Reward claimed!
+    </div>
   </div>
 </div>
 
+<!-- Show last action/status message -->
+<!-- <div *ngIf="lastActionMessage" class="status-message" style="margin:12px 0; color:#2a2;">
+  {{ lastActionMessage }}
+</div> -->
 
 
-  <!-- <div class="bingo-grid">
-    <div
-      *ngFor="let num of row"
-      class="cell"
-      [class.marked]="isMarked(num)"
-      (click)="toggleMark(num)">
-        {{ num }}
-    </div>
-  </div> -->
-  <button class="win-btn" (click)="onWin()">Claim Reward</button>
+  <button *ngIf="lastActionMessage" class="win-btn" (click)="onWin(); claimReward();">Claim Reward</button>
 
   <div *ngIf="reward" class="reward-box">
     <p class="reward-name">Reward: {{ reward.name }}</p>
     <p class="reward-rarity">Rarity: {{ reward.rarity }}</p>
   </div>
+
+  <!-- Add this after your multi-card-container and status message -->
+  <div *ngIf="reward" class="reward-popup" style="position:fixed; left:0; right:0; top:0; bottom:0; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; z-index:1000;">
+    <div style="background:#fff; padding:32px 24px; border-radius:16px; box-shadow:0 2px 16px #0002; text-align:center; min-width:260px;">
+      <h2 style="margin-bottom:12px;">🎁 You Won!</h2>
+      <div *ngIf="reward.imageUrl" style="margin-bottom:12px;">
+        <img [src]="reward.imageUrl" [alt]="reward.name" style="max-width:120px; max-height:120px; border-radius:8px;" />
+      </div>
+      <div style="font-size:1.2em; font-weight:600;">{{ reward.name }}</div>
+      <div style="color:#888; margin-bottom:8px;">Rarity: {{ reward.rarity }}</div>
+      <button style="margin-top:16px; padding:8px 18px; font-size:1em;" (click)="reward = null">Close</button>
+    </div>
+  </div>
 </div>
+

@@ -1,37 +1,109 @@
-<h2>Your Closet</h2>
+<ng-container *ngIf="closet | filterByType: filterType as filteredItems">
+  <section class="closet-wrapper">
+    <div class="closet-hero">
+      <div class="hero-text">
+        <p class="hero-kicker">Fashion Vault</p>
+        <h2>Wardrobe Control Center</h2>
+        <p class="hero-subtitle">
+          Spin the bingo wheel, unlock rewards, and hang them proudly on your neon rail.
+        </p>
+        <div class="closet-controls">
+          <div class="control-chip">
+            <span>Player ID</span>
+            <strong>{{ playerId || '—' }}</strong>
+          </div>
+          <button class="ghost-btn" (click)="loadCloset()" title="Refresh closet">
+            Refresh Closet
+          </button>
+        </div>
+        <div class="filter-bar">
+          <button (click)="filterType='all'" [class.active]="filterType==='all'">All</button>
+          <button (click)="filterType='Shirt'" [class.active]="filterType==='Shirt'">Shirts</button>
+          <button (click)="filterType='Pants'" [class.active]="filterType==='Pants'">Pants</button>
+          <button (click)="filterType='Shoes'" [class.active]="filterType==='Shoes'">Shoes</button>
+          <button (click)="filterType='Hat'" [class.active]="filterType==='Hat'">Hats</button>
+          <button (click)="filterType='Accessory'" [class.active]="filterType==='Accessory'">Accessories</button>
+        </div>
+      </div>
+      <div class="hero-bubble">
+        <p>Latest action</p>
+        <strong>{{ lastActionMessage || 'Waiting for your next outfit!' }}</strong>
+        <span class="sparkle sparkle-one"></span>
+        <span class="sparkle sparkle-two"></span>
+      </div>
+    </div>
+  </section>
 
-<!-- Filter Bar (optional) -->
-<div class="filter-bar">
-  <button (click)="filterType='all'" [class.active]="filterType==='all'">All</button>
-  <button (click)="filterType='Shirt'" [class.active]="filterType==='Shirt'">Shirts</button>
-  <button (click)="filterType='Pants'" [class.active]="filterType==='Pants'">Pants</button>
-  <button (click)="filterType='Shoes'" [class.active]="filterType==='Shoes'">Shoes</button>
-  <button (click)="filterType='Hat'" [class.active]="filterType==='Hat'">Hats</button>
-  <button (click)="filterType='Accessory'" [class.active]="filterType==='Accessory'">Accessories</button>
-</div>
+  <section class="closet-stage">
+    <div class="closet-door left-door">
+      <div class="door-panel"></div>
+      <div class="door-knob"></div>
+    </div>
 
-<!-- Closet Grid -->
-<div class="closet-items-grid">
-  <div *ngFor="let item of closet | filterByType: filterType" class="closet-item">
-    <img [src]="item.imageUrl" [alt]="item.name" />
-    <p>{{ item.name }}</p>
-    <p>{{ item.rarity }}</p>
-    <button (click)="equipItem(item)">Equip</button>
-  </div>
-</div>
+    <div class="closet-interior">
+      <p class="closet-label">Tap a hanger to equip</p>
 
-<h2>Mannequin</h2>
+      <div *ngIf="filteredItems.length === 0" class="closet-empty">
+        <p>No treasures on this rail{{ filterType !== 'all' ? ' for this type yet.' : '… keep playing!' }}</p>
+        <button (click)="loadCloset()">Check again</button>
+      </div>
 
-<div class="mannequin-display">
-  <div class="mannequin-body">
-    <!-- Base avatar -->
-    <div class="base-avatar"></div>
+      <div class="closet-rail" *ngIf="filteredItems.length > 0">
+        <div class="closet-hanger" *ngFor="let item of filteredItems">
+          <div class="hanger-wire"></div>
+          <div class="hanger-hook"></div>
+          <div class="hanger-tag">{{ item.rarity | titlecase }}</div>
+          <div class="item-card">
+            <img [src]="item.imageUrl" [alt]="item.name" />
+            <p class="item-name">{{ item.name }}</p>
+            <p class="item-type">{{ item.type }}</p>
+            <button (click)="equipItem(item)">Equip</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <!-- Equipped layers -->
-    <img *ngIf="mannequin.equippedItems['Shirt']" [src]="mannequin.equippedItems['Shirt'].imageUrl" class="layer shirt" />
-    <img *ngIf="mannequin.equippedItems['Pants']" [src]="mannequin.equippedItems['Pants'].imageUrl" class="layer pants" />
-    <img *ngIf="mannequin.equippedItems['Shoes']" [src]="mannequin.equippedItems['Shoes'].imageUrl" class="layer shoes" />
-    <img *ngIf="mannequin.equippedItems['Hat']" [src]="mannequin.equippedItems['Hat'].imageUrl" class="layer hat" />
-    <img *ngIf="mannequin.equippedItems['Accessory']" [src]="mannequin.equippedItems['Accessory'].imageUrl" class="layer accessory" />
-  </div>
-</div>
+    <div class="closet-door right-door">
+      <div class="door-panel"></div>
+      <div class="door-knob"></div>
+    </div>
+  </section>
+
+  <section class="closet-bottom">
+    <div class="wardrobe-column mannequin-col" *ngIf="closet.length > 0">
+      <h3>Runway Preview</h3>
+      <div class="mannequin-display">
+        <div class="mannequin-base">
+          <div class="base-avatar"></div>
+          <img *ngIf="mannequin.equippedItems['Shirt']" [src]="mannequin.equippedItems['Shirt'].imageUrl" class="layer shirt" />
+          <img *ngIf="mannequin.equippedItems['Pants']" [src]="mannequin.equippedItems['Pants'].imageUrl" class="layer pants" />
+          <img *ngIf="mannequin.equippedItems['Shoes']" [src]="mannequin.equippedItems['Shoes'].imageUrl" class="layer shoes" />
+          <img *ngIf="mannequin.equippedItems['Hat']" [src]="mannequin.equippedItems['Hat'].imageUrl" class="layer hat" />
+          <img *ngIf="mannequin.equippedItems['Accessory']" [src]="mannequin.equippedItems['Accessory'].imageUrl" class="layer accessory" />
+        </div>
+      </div>
+      <p class="mannequin-tip">
+        Equip a full look (Shirt, Pants, Shoes, Hat, Accessory) to hit the Hall of Fame!
+      </p>
+    </div>
+
+    <div class="wardrobe-column status-col">
+      <h3>Closet Notes</h3>
+      <ul class="status-list">
+        <li>
+          <span>Total Pieces</span>
+          <strong>{{ closet.length }}</strong>
+        </li>
+        <li>
+          <span>Showing</span>
+          <strong>{{ filteredItems.length }} {{ filterType | titlecase }}</strong>
+        </li>
+        <li>
+          <span>Player ID</span>
+          <strong>{{ playerId || 'Not set' }}</strong>
+        </li>
+      </ul>
+      <p class="status-hint">Need more pieces? Score Bingos to unlock rewards!</p>
+    </div>
+  </section>
+</ng-container>

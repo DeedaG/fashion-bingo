@@ -1,2 +1,7 @@
-<app-bingo-board></app-bingo-board>
-<app-closet></app-closet>
+<h4>Fashion Bingo</h4>
+
+<!-- listen for playerStarted from BingoBoard and set local playerId -->
+<app-bingo-board (playerStarted)="playerId = $event" [playerId]="playerId"></app-bingo-board>
+
+<!-- pass playerId into ClosetComponent so it can auto-load -->
+<app-closet [playerId]="playerId"></app-closet>

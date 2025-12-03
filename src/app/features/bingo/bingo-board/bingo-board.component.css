@@ -273,3 +273,23 @@
   transform: scale(1.05);
 }
 
+.demo-mode {
+  color:#555;
+  background-color: aqua;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.start-game-btn {
+  padding: 8px 16px;
+  background: #ff66aa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: 0.2s;
+}
+

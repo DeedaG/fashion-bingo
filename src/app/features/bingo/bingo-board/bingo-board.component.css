@@ -88,6 +88,73 @@
   color: #444;
 }
 
+.reward-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 12, 41, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 24px;
+}
+
+.reward-modal {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 40px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+}
+
+.reward-label {
+  text-transform: uppercase;
+  color: #ff66aa;
+  letter-spacing: 0.3em;
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.reward-modal h2 {
+  margin: 0 0 12px;
+  color: #31204f;
+}
+
+.reward-art {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 16px;
+  border-radius: 20px;
+  background: #fff7fb;
+  border: 2px dashed #ffd2eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.reward-art img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.reward-placeholder {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ff66aa;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.reward-message {
+  margin: 12px 0 20px;
+  color: #5f4c79;
+}
+
 /* NUMBER CALLER UI */
 .caller-box {
   display: flex;
@@ -292,4 +359,3 @@
   margin-left: 8px;
   transition: 0.2s;
 }
-

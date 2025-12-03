@@ -72,30 +72,17 @@
   </div>
 </div>
 
-<!-- Show last action/status message -->
-<!-- <div *ngIf="lastActionMessage" class="status-message" style="margin:12px 0; color:#2a2;">
-  {{ lastActionMessage }}
-</div> -->
-
-
-  <button *ngIf="lastActionMessage" class="win-btn" (click)="onWin(); claimReward();">Claim Reward</button>
-
-  <div *ngIf="reward" class="reward-box">
-    <p class="reward-name">Reward: {{ reward.name }}</p>
-    <p class="reward-rarity">Rarity: {{ reward.rarity }}</p>
-  </div>
-
-  <!-- Add this after your multi-card-container and status message -->
-  <div *ngIf="reward" class="reward-popup" style="position:fixed; left:0; right:0; top:0; bottom:0; background:rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; z-index:1000;">
-    <div style="background:#fff; padding:32px 24px; border-radius:16px; box-shadow:0 2px 16px #0002; text-align:center; min-width:260px;">
-      <h2 style="margin-bottom:12px;">🎁 You Won!</h2>
-      <div *ngIf="reward.imageUrl" style="margin-bottom:12px;">
-        <img [src]="reward.imageUrl" [alt]="reward.name" style="max-width:120px; max-height:120px; border-radius:8px;" />
+  <div *ngIf="rewardModalVisible && reward" class="reward-overlay">
+    <div class="reward-modal">
+      <p class="reward-label">Bingo Reward</p>
+      <h2>{{ reward.name }}</h2>
+      <div class="reward-art">
+        <img *ngIf="reward.imageUrl" [src]="reward.imageUrl" [alt]="reward.name">
+        <div *ngIf="!reward.imageUrl" class="reward-placeholder">{{ reward.type }}</div>
       </div>
-      <div style="font-size:1.2em; font-weight:600;">{{ reward.name }}</div>
-      <div style="color:#888; margin-bottom:8px;">Rarity: {{ reward.rarity }}</div>
-      <button style="margin-top:16px; padding:8px 18px; font-size:1em;" (click)="reward = null">Close</button>
+      <p class="reward-rarity">Rarity: {{ reward.rarity }}</p>
+      <p class="reward-message">{{ rewardDeliveryMessage }}</p>
+      <button class="win-btn" (click)="closeRewardModal()">Back to Bingo</button>
     </div>
   </div>
 </div>
-

@@ -38,6 +38,9 @@ export class BingoBoardComponent implements OnInit {
   demoMode = true; // true = auto-mark demo, false = manual game
   private playerProfileReady = false;
   private registeringPlayer = false;
+  rewardModalVisible = false;
+  rewardDeliveryMessage = '';
+  rewardDelivering = false;
 
   constructor(
     private bingoService: BingoService,
@@ -223,14 +226,21 @@ export class BingoBoardComponent implements OnInit {
       this.reward = reward;
       this.claimedCards[cardIndex] = true;
       this.lastActionMessage = `You won: ${reward.name} (card ${cardIndex + 1})`;
+      this.rewardModalVisible = true;
+      this.rewardDeliveryMessage = 'Placing your prize in the closet...';
+      this.rewardDelivering = true;
 
       if (reward) {
         this.closetService.addItem(this.playerId, reward).subscribe(() => {
           this.lastActionMessage = `${reward.name} added to your closet!`;
+          this.rewardDelivering = false;
+          this.rewardDeliveryMessage = `${reward.name} is hanging in your closet now.`;
           // notify via service (real-time flow)
           try { this.closetService.notifyClosetUpdated(this.playerId); } catch { /* ignore */ }
         }, err => {
           this.lastActionMessage = `Failed to add ${reward.name} to closet.`;
+          this.rewardDelivering = false;
+          this.rewardDeliveryMessage = `We couldn't place ${reward.name} in your closet. Please try again.`;
         });
       }
     }, err => {
@@ -298,6 +308,14 @@ export class BingoBoardComponent implements OnInit {
     }, 30000);
   }
 
+  closeRewardModal(): void {
+    this.rewardModalVisible = false;
+    if (!this.rewardDelivering) {
+      this.reward = null;
+      this.rewardDeliveryMessage = '';
+    }
+  }
+
   // returns true if the card at cardIndex has a completed row/col/diagonal
   private checkWinForCard(cardIndex: number): boolean {
     const card = this.cards[cardIndex];
@@ -355,5 +373,3 @@ export class BingoBoardComponent implements OnInit {
     return false;
   }
 }
-
-

@@ -13,7 +13,7 @@ export class PlayerService {
   constructor(private http: HttpClient) {}
 
   createPlayer(playerId: string): Observable<Player> {
-    return this.http.post<Player>(`${this.baseUrl}/createPlayer`, playerId);
+    return this.http.post<Player>(`${this.baseUrl}/createPlayer`, { playerId });
   }
 
   getPlayer(playerId: string): Observable<Player> {

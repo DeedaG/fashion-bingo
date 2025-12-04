@@ -79,7 +79,14 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
 
   equipItem(item: ClothingItem): void {
     this.closetService.equipItem(this.playerId, item).subscribe(man => {
-      this.mannequin = man;
+      const updated = man?.equippedItems ?? {};
+      const current = this.mannequin?.equippedItems ?? {};
+      this.mannequin = {
+        equippedItems: {
+          ...current,
+          ...updated
+        }
+      };
 
       // Check if mannequin is fully dressed
       const requiredTypes = ["Shirt", "Pants", "Shoes", "Hat", "Accessory"];

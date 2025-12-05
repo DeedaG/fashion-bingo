@@ -23,7 +23,9 @@
           <button (click)="filterType='Shoes'" [class.active]="filterType==='Shoes'">Shoes</button>
           <button (click)="filterType='Hat'" [class.active]="filterType==='Hat'">Hats</button>
           <button (click)="filterType='Accessory'" [class.active]="filterType==='Accessory'">Accessories</button>
+          <button (click)="filterType='Bag'" [class.active]="filterType==='Bag'">Purses</button>
           <button (click)="filterType='Necklace'" [class.active]="filterType==='Necklace'">Necklaces</button>
+          <button (click)="filterType='Dress'" [class.active]="filterType==='Dress'">Dresses</button>
         </div>
       </div>
       <div class="hero-bubble">
@@ -44,21 +46,24 @@
     <div class="closet-interior">
       <p class="closet-label">Tap a hanger to equip</p>
 
-      <div *ngIf="filteredItems.length === 0" class="closet-empty">
+      <div *ngIf="closetSlots.length === 0" class="closet-empty">
         <p>No treasures on this rail{{ filterType !== 'all' ? ' for this type yet.' : '… keep playing!' }}</p>
         <button (click)="loadCloset()">Check again</button>
       </div>
 
-      <div class="closet-rail" *ngIf="filteredItems.length > 0">
-        <div class="closet-hanger" *ngFor="let item of filteredItems">
+      <div class="closet-rail" *ngIf="(closetSlots | filterByType: filterType).length > 0">
+        <div
+          class="closet-hanger"
+          *ngFor="let slot of closetSlots | filterByType: filterType"
+          [class.in-use]="slot.inUse">
           <div class="hanger-wire"></div>
           <div class="hanger-hook"></div>
-          <div class="hanger-tag">{{ item.rarity | titlecase }}</div>
-          <div class="item-card">
-            <img [src]="closetService.getImageSrc(item)" [alt]="item.name" />
-            <p class="item-name">{{ item.name }}</p>
-            <p class="item-type">{{ item.type }}</p>
-            <button (click)="equipItem(item)">Equip</button>
+          <div class="hanger-tag" *ngIf="slot.item">{{ slot.item.rarity | titlecase }}</div>
+          <div class="item-card" *ngIf="slot.item && !slot.inUse; else hangerPlaceholder">
+            <img [src]="closetService.getImageSrc(slot.item)" [alt]="slot.item.name" />
+            <p class="item-name">{{ slot.item.name }}</p>
+            <p class="item-type">{{ slot.item.type }}</p>
+            <button (click)="equipItem(slot.item)">Equip</button>
           </div>
         </div>
       </div>
@@ -77,28 +82,106 @@
         <div class="mannequin-display">
           <div class="mannequin-base">
             <div class="base-avatar"></div>
-            <img *ngIf="mannequin.equippedItems['Shirt']"
-                 [src]="closetService.getImageSrc(mannequin.equippedItems['Shirt'])"
-                 class="layer shirt"
-                 [attr.data-item-name]="mannequin.equippedItems['Shirt']?.name" />
-            <img *ngIf="mannequin.equippedItems['Pants']" [src]="closetService.getImageSrc(mannequin.equippedItems['Pants'])" class="layer pants" />
-            <img *ngIf="mannequin.equippedItems['Hat']" [src]="closetService.getImageSrc(mannequin.equippedItems['Hat'])" class="layer hat" />
+            <ng-container *ngIf="getEquippedForTypes(topSlotTypes) as topSlot">
+              <div class="layer-wrapper">
+                <img
+                  [src]="closetService.getImageSrc(topSlot.item)"
+                  class="layer shirt"
+                  [attr.data-item-name]="topSlot.item?.name" />
+                <button
+                  type="button"
+                  class="unequip-btn"
+                  *ngIf="!outfitLocked"
+                  (click)="unequip(topSlot.type)"
+                  aria-label="Remove top">
+                  ×
+                </button>
+              </div>
+            </ng-container>
+            <div class="layer-wrapper" *ngIf="mannequin.equippedItems['Dress']">
+              <img
+                [src]="closetService.getImageSrc(mannequin.equippedItems['Dress'])"
+                class="layer dress" />
+              <button
+                type="button"
+                class="unequip-btn"
+                *ngIf="!outfitLocked"
+                (click)="unequip('Dress')"
+                aria-label="Remove dress">
+                ×
+              </button>
+            </div>
+            <div class="layer-wrapper" *ngIf="mannequin.equippedItems['Pants']">
+              <img
+                [src]="closetService.getImageSrc(mannequin.equippedItems['Pants'])"
+                class="layer pants"
+                [attr.data-item-name]="mannequin.equippedItems['Pants']?.name" />
+              <button
+                type="button"
+                class="unequip-btn"
+                *ngIf="!outfitLocked"
+                (click)="unequip('Pants')"
+                aria-label="Remove pants">
+                ×
+              </button>
+            </div>
+            <div class="layer-wrapper" *ngIf="mannequin.equippedItems['Hat']">
+              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Hat'])" class="layer hat" />
+              <button
+                type="button"
+                class="unequip-btn"
+                *ngIf="!outfitLocked"
+                (click)="unequip('Hat')"
+                aria-label="Remove hat">
+                ×
+              </button>
+            </div>
           </div>
         </div>
         <div class="side-accessories">
           <div class="side-slot">
             <p class="slot-label">Purse</p>
-            <img *ngIf="mannequin.equippedItems['Bag']" [src]="closetService.getImageSrc(mannequin.equippedItems['Bag'])" class="side-image" />
+            <div class="side-item" *ngIf="mannequin.equippedItems['Bag']">
+              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Bag'])" class="side-image" />
+              <button
+                type="button"
+                class="unequip-btn side"
+                *ngIf="!outfitLocked"
+                (click)="unequip('Bag')"
+                aria-label="Remove purse">
+                ×
+              </button>
+            </div>
             <div class="slot-placeholder" *ngIf="!mannequin.equippedItems['Bag']">Tap a purse to equip</div>
           </div>
           <div class="side-slot">
             <p class="slot-label">Shoes</p>
-            <img *ngIf="mannequin.equippedItems['Shoes']" [src]="closetService.getImageSrc(mannequin.equippedItems['Shoes'])" class="side-image" />
+            <div class="side-item" *ngIf="mannequin.equippedItems['Shoes']">
+              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Shoes'])" class="side-image" />
+              <button
+                type="button"
+                class="unequip-btn side"
+                *ngIf="!outfitLocked"
+                (click)="unequip('Shoes')"
+                aria-label="Remove shoes">
+                ×
+              </button>
+            </div>
             <div class="slot-placeholder" *ngIf="!mannequin.equippedItems['Shoes']">Step into heels or sneakers</div>
           </div>
           <div class="side-slot">
             <p class="slot-label">Necklace</p>
-            <img *ngIf="mannequin.equippedItems['Necklace']" [src]="closetService.getImageSrc(mannequin.equippedItems['Necklace'])" class="side-image" />
+            <div class="side-item" *ngIf="mannequin.equippedItems['Necklace']">
+              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Necklace'])" class="side-image" />
+              <button
+                type="button"
+                class="unequip-btn side"
+                *ngIf="!outfitLocked"
+                (click)="unequip('Necklace')"
+                aria-label="Remove necklace">
+                ×
+              </button>
+            </div>
             <div class="slot-placeholder" *ngIf="!mannequin.equippedItems['Necklace']">Add a necklace</div>
           </div>
         </div>
@@ -128,3 +211,9 @@
     </div>
   </section>
 </ng-container>
+      <ng-template #hangerPlaceholder>
+        <div class="item-card placeholder">
+          <div class="placeholder-icon">🧥</div>
+          <p class="placeholder-text">On the mannequin</p>
+        </div>
+      </ng-template>

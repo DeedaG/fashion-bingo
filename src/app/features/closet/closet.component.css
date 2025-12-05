@@ -157,12 +157,14 @@
   background: #f7f4ff;
   border: 2px solid #eadfff;
   border-radius: 32px;
-  padding: 40px 32px;
+  padding: 48px 40px;
   display: flex;
   align-items: stretch;
+  flex-wrap: wrap;
   gap: 18px;
   margin-bottom: 32px;
-  overflow: hidden;
+  min-height: 520px;
+  overflow: visible;
 }
 
 .closet-door {
@@ -200,9 +202,10 @@
   background: #fff;
   border-radius: 28px;
   border: 2px solid #e6dcff;
-  padding: 24px;
+  padding: 32px;
   position: relative;
-  overflow: hidden;
+  min-height: 520px;
+  overflow: visible;
 }
 
 .closet-interior::after {
@@ -247,9 +250,10 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 26px;
   margin-top: 12px;
+  padding-bottom: 12px;
 }
 
 .closet-rail::before {
@@ -266,6 +270,10 @@
 .closet-hanger {
   position: relative;
   padding-top: 24px;
+}
+.closet-hanger.in-use .item-card {
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 .hanger-wire {
@@ -317,6 +325,20 @@
 .item-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 26px 30px rgba(102, 57, 166, 0.15);
+}
+.item-card.placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #9b8cc0;
+  font-weight: 600;
+  background: #f7f4ff;
+  border-style: dashed;
+}
+.placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 6px;
 }
 
 .item-card img {
@@ -386,19 +408,20 @@
 }
 
 .mannequin-base {
-  width: 190px;
-  height: 375px;
+  width: 230px;
+  height: 480px;
   border-radius: 24px;
   background: linear-gradient(180deg, #f1efff, #fff);
   border: 2px solid #d8ccff;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .base-avatar {
   position: absolute;
-  width: 120px;
-  height: 325px;
+  width: 150px;
+  height: 430px;
   background: #f7d6c4;
   border-radius: 80px;
   left: 50%;
@@ -415,26 +438,66 @@
   pointer-events: none;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
+.layer-wrapper {
+  position: absolute;
+  inset: 0;
+}
+.layer-wrapper .unequip-btn {
+  top: 55px;
+  right: 12px;
+}
 .layer.shirt {
-  top: 70px;
+  top: 85px;
   left: 50%;
-  width: 150px;
-  height: 140px;
+  width: 165px;
+  height: 190px;
   transform: translateX(-50%);
   z-index: 4;
 }
+.layer.dress {
+  top: 70px;
+  left: 50%;
+  width: 190px;
+  height: 300px;
+  transform: translateX(-50%);
+  z-index: 3.5;
+}
 .layer.shirt[data-item-name="T Shirt"] {
-  width: 120px;
-  height: 120px;
-  top: 80px;
+  width: 115px;
+  height: 135px;
+  top: 110px;
 }
 .layer.pants {
-  top: 180px;
+  top: 260px;
   left: 50%;
-  width: 125px;
-  height: 120px;
+  width: 155px;
+  height: 210px;
   transform: translateX(-50%);
   z-index: 3;
+}
+.layer.pants[data-item-name="Jeans"] {
+  top: 240px;
+  width: 195px;
+  height: 235px;
+  clip-path: inset(6% 0 0 0);
+}
+.layer.shirt[data-item-name="Sweater"],
+.layer.pants[data-item-name="Jeans"],
+.layer.pants[data-item-name="Trousers"] {
+  mix-blend-mode: multiply;
+  background-color: transparent;
+  filter: contrast(1.05) saturate(1.05);
+}
+.layer.shirt[data-item-name="Sweater"] {
+  top: 45px;
+  height: 245px;
+  clip-path: inset(4% 0 32% 0);
+}
+.layer.pants[data-item-name="Trousers"] {
+  top: 235px;
+  width: 195px;
+  height: 235px;
+  clip-path: inset(10% 0 0 0);
 }
 .layer.hat {
   top: 0;
@@ -443,6 +506,29 @@
   height: 90px;
   transform: translateX(-50%);
   z-index: 5;
+}
+
+.unequip-btn {
+  position: absolute;
+  border: none;
+  background: rgba(255,255,255,0.85);
+  color: #a03c78;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  pointer-events: auto;
+}
+.unequip-btn.side {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+.side-item {
+  position: relative;
 }
 
 .side-accessories {

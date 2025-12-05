@@ -43,6 +43,15 @@ export class ClosetService {
       );
   }
 
+  consumeItems(playerId: string, itemIds: string[]): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/${playerId}/consume`, { itemIds })
+      .pipe(
+        tap(() => {
+          try { this.closetUpdated$.next(playerId); } catch { /* ignore */ }
+        })
+      );
+  }
+
   // Public observable for components to subscribe to closet updates
   onClosetUpdated(): Observable<string> {
     return this.closetUpdated$.asObservable();

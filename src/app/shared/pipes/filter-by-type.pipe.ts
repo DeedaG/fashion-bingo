@@ -6,9 +6,12 @@ import { ClothingItem } from '../../core/models/clothing-item.model';
   standalone: true
 })
 export class FilterByTypePipe implements PipeTransform {
-  transform(items: ClothingItem[], type: string): ClothingItem[] {
+  transform(items: any[], type: string): any[] {
     if (!items) return [];
     if (!type || type === 'all') return items;
-    return items.filter(i => i.type === type);
+    return items.filter(i => {
+      const candidate = i?.type ? i : i?.item;
+      return candidate?.type === type;
+    });
   }
 }

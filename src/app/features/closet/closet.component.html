@@ -59,7 +59,7 @@
           <div class="hanger-wire"></div>
           <div class="hanger-hook"></div>
           <div class="hanger-tag" *ngIf="slot.item">{{ slot.item.rarity | titlecase }}</div>
-          <div class="item-card" *ngIf="slot.item && !slot.inUse; else hangerPlaceholder">
+          <div class="item-card" *ngIf="slot.item && !slot.inUse; else hangerPlaceholder" [ngClass]="{'gold-skirt': slot.item?.name === 'Gold Skirt'}">
             <img [src]="closetService.getImageSrc(slot.item)" [alt]="slot.item.name" />
             <p class="item-name">{{ slot.item.name }}</p>
             <p class="item-type">{{ slot.item.type }}</p>
@@ -126,7 +126,10 @@
               </button>
             </div>
             <div class="layer-wrapper" *ngIf="mannequin.equippedItems['Hat']">
-              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Hat'])" class="layer hat" />
+              <img
+                [src]="closetService.getImageSrc(mannequin.equippedItems['Hat'])"
+                class="layer hat"
+                [attr.data-item-name]="mannequin.equippedItems['Hat']?.name" />
               <button
                 type="button"
                 class="unequip-btn"

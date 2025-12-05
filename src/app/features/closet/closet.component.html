@@ -23,6 +23,7 @@
           <button (click)="filterType='Shoes'" [class.active]="filterType==='Shoes'">Shoes</button>
           <button (click)="filterType='Hat'" [class.active]="filterType==='Hat'">Hats</button>
           <button (click)="filterType='Accessory'" [class.active]="filterType==='Accessory'">Accessories</button>
+          <button (click)="filterType='Necklace'" [class.active]="filterType==='Necklace'">Necklaces</button>
         </div>
       </div>
       <div class="hero-bubble">
@@ -54,7 +55,7 @@
           <div class="hanger-hook"></div>
           <div class="hanger-tag">{{ item.rarity | titlecase }}</div>
           <div class="item-card">
-            <img [src]="item.imageUrl" [alt]="item.name" />
+            <img [src]="closetService.getImageSrc(item)" [alt]="item.name" />
             <p class="item-name">{{ item.name }}</p>
             <p class="item-type">{{ item.type }}</p>
             <button (click)="equipItem(item)">Equip</button>
@@ -72,18 +73,38 @@
   <section class="closet-bottom">
     <div class="wardrobe-column mannequin-col" *ngIf="closet.length > 0">
       <h3>Runway Preview</h3>
-      <div class="mannequin-display">
-        <div class="mannequin-base">
-          <div class="base-avatar"></div>
-          <img *ngIf="mannequin.equippedItems['Shirt']" [src]="mannequin.equippedItems['Shirt'].imageUrl" class="layer shirt" />
-          <img *ngIf="mannequin.equippedItems['Pants']" [src]="mannequin.equippedItems['Pants'].imageUrl" class="layer pants" />
-          <img *ngIf="mannequin.equippedItems['Shoes']" [src]="mannequin.equippedItems['Shoes'].imageUrl" class="layer shoes" />
-          <img *ngIf="mannequin.equippedItems['Hat']" [src]="mannequin.equippedItems['Hat'].imageUrl" class="layer hat" />
-          <img *ngIf="mannequin.equippedItems['Accessory']" [src]="mannequin.equippedItems['Accessory'].imageUrl" class="layer accessory" />
+      <div class="mannequin-stage">
+        <div class="mannequin-display">
+          <div class="mannequin-base">
+            <div class="base-avatar"></div>
+            <img *ngIf="mannequin.equippedItems['Shirt']"
+                 [src]="closetService.getImageSrc(mannequin.equippedItems['Shirt'])"
+                 class="layer shirt"
+                 [attr.data-item-name]="mannequin.equippedItems['Shirt']?.name" />
+            <img *ngIf="mannequin.equippedItems['Pants']" [src]="closetService.getImageSrc(mannequin.equippedItems['Pants'])" class="layer pants" />
+            <img *ngIf="mannequin.equippedItems['Hat']" [src]="closetService.getImageSrc(mannequin.equippedItems['Hat'])" class="layer hat" />
+          </div>
+        </div>
+        <div class="side-accessories">
+          <div class="side-slot">
+            <p class="slot-label">Purse</p>
+            <img *ngIf="mannequin.equippedItems['Bag']" [src]="closetService.getImageSrc(mannequin.equippedItems['Bag'])" class="side-image" />
+            <div class="slot-placeholder" *ngIf="!mannequin.equippedItems['Bag']">Tap a purse to equip</div>
+          </div>
+          <div class="side-slot">
+            <p class="slot-label">Shoes</p>
+            <img *ngIf="mannequin.equippedItems['Shoes']" [src]="closetService.getImageSrc(mannequin.equippedItems['Shoes'])" class="side-image" />
+            <div class="slot-placeholder" *ngIf="!mannequin.equippedItems['Shoes']">Step into heels or sneakers</div>
+          </div>
+          <div class="side-slot">
+            <p class="slot-label">Necklace</p>
+            <img *ngIf="mannequin.equippedItems['Necklace']" [src]="closetService.getImageSrc(mannequin.equippedItems['Necklace'])" class="side-image" />
+            <div class="slot-placeholder" *ngIf="!mannequin.equippedItems['Necklace']">Add a necklace</div>
+          </div>
         </div>
       </div>
       <p class="mannequin-tip">
-        Equip a full look (Shirt, Pants, Shoes, Hat, Accessory) to hit the Hall of Fame!
+        Equip a full look (Shirt, Pants, Shoes, Hat, Necklace) to hit the Hall of Fame!
       </p>
     </div>
 

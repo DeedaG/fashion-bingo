@@ -4,7 +4,7 @@
 
 <div *ngIf="reward" class="reward-popup">
   <h2>{{reward.rarity}} Reward!</h2>
-  <img [src]="reward.clothing.imageUrl" />
+  <img [src]="closetService.getImageSrc(reward.clothing)" />
   <p>{{reward.clothing.name}}</p>
   <p>Coins: +{{reward.coins}}</p>
   <p *ngIf="reward.gems > 0">Gems: +{{reward.gems}}</p>

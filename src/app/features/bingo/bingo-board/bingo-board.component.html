@@ -77,10 +77,10 @@
       <p class="reward-label">Bingo Reward</p>
       <h2>{{ reward.name }}</h2>
       <div class="reward-art">
-        <img *ngIf="reward.imageUrl" [src]="reward.imageUrl" [alt]="reward.name">
+        <img *ngIf="reward.imageUrl" [src]="closetService.getImageSrc(reward)" [alt]="reward.name">
         <div *ngIf="!reward.imageUrl" class="reward-placeholder">{{ reward.type }}</div>
       </div>
-      <p class="reward-rarity">Rarity: {{ reward.rarity }}</p>
+      <!-- <p class="reward-rarity">Rarity: {{ reward.rarity }}</p> -->
       <p class="reward-message">{{ rewardDeliveryMessage }}</p>
       <button class="win-btn" (click)="closeRewardModal()">Back to Bingo</button>
     </div>

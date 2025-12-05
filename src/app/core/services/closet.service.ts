@@ -52,4 +52,11 @@ export class ClosetService {
   notifyClosetUpdated(playerId: string) {
     try { this.closetUpdated$.next(playerId); } catch { /* ignore */ }
   }
+
+  getImageSrc(item: ClothingItem | undefined) {
+    if (!item?.imageUrl) { return ''; }
+    return item.imageUrl.startsWith('http')
+      ? item.imageUrl
+      : `${environment.apiBase}${item.imageUrl}`;
+  }
 }

@@ -5,6 +5,7 @@ import { ClosetService } from '../../core/services/closet.service';
 import { ClothingItem } from '../../core/models/clothing-item.model';
 import { Mannequin } from '../../core/models/mannequin.model';
 import { FilterByTypePipe } from '../../shared/pipes/filter-by-type.pipe';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-closet',
@@ -89,7 +90,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
       };
 
       // Check if mannequin is fully dressed
-      const requiredTypes = ["Shirt", "Pants", "Shoes", "Hat", "Accessory"];
+      const requiredTypes = ["Shirt", "Pants", "Shoes", "Hat", "Necklace"];
       const fullyDressed = requiredTypes.every(type => !!this.mannequin.equippedItems[type]);
       if (fullyDressed) {
         alert('Congratulations! Your mannequin is fully dressed and your name is on the Hall of Fame!');

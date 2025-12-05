@@ -10,11 +10,17 @@
         <div class="closet-controls">
           <div class="control-chip">
             <span>Player ID</span>
-            <strong>{{ playerId || '—' }}</strong>
+            <strong>{{ displayPlayerLabel }}</strong>
           </div>
           <button class="ghost-btn" (click)="loadCloset()" title="Refresh closet">
             Refresh Closet
           </button>
+          <button *ngIf="!isPremiumPlayer" class="premium-btn" (click)="upgradeToPremium()">
+            Unlock Premium Closet
+          </button>
+          <div *ngIf="isPremiumPlayer" class="premium-pill">
+            Premium closet active
+          </div>
         </div>
         <div class="filter-bar">
           <button (click)="filterType='all'" [class.active]="filterType==='all'">All</button>

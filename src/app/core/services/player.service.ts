@@ -19,4 +19,8 @@ export class PlayerService {
   getPlayer(playerId: string): Observable<Player> {
     return this.http.get<Player>(`${this.baseUrl}/${playerId}`);
   }
+
+  setPremiumStatus(playerId: string, isPremium: boolean = true): Observable<Player> {
+    return this.http.post<Player>(`${this.baseUrl}/${playerId}/upgrade`, { isPremium });
+  }
 }

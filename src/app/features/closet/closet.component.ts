@@ -6,6 +6,8 @@ import { ClothingItem } from '../../core/models/clothing-item.model';
 import { Mannequin } from '../../core/models/mannequin.model';
 import { FilterByTypePipe } from '../../shared/pipes/filter-by-type.pipe';
 import { environment } from '../../../../environments/environment';
+import { PlayerService } from '../../core/services/player.service';
+import { Player } from '../../core/models/player.model';
 
 @Component({
   selector: 'app-closet',
@@ -22,11 +24,13 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
   filterType: string = 'all';
   lastActionMessage = '';
   outfitLocked = false;
+  isPremiumPlayer = false;
+  playerDisplayName = '';
   readonly topSlotTypes = ["Shirt", "Blouse", "Sweater", "Coat"];
 
   private subscriptions = new Subscription();
 
-  constructor(private closetService: ClosetService) {}
+  constructor(private closetService: ClosetService, private playerService: PlayerService) {}
 
   ngOnInit(): void {
     // subscribe for real-time updates
@@ -38,6 +42,12 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
         }
       })
     );
+
+    // If the component is created after a player already started a game,
+    // make sure we hydrate the closet immediately.
+    if (this.playerId && this.playerId.trim().length > 0) {
+      this.loadCloset();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,6 +57,9 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
         this.loadCloset();
       } else {
         this.closet = [];
+        this.closetSlots = [];
+        this.isPremiumPlayer = false;
+        this.playerDisplayName = '';
       }
     }
   }
@@ -64,6 +77,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
       return; 
     }
     if (typeof this.playerId === 'string' && this.playerId.trim().length > 0) {
+      this.fetchPlayerProfile();
       this.closetService.getCloset(this.playerId.trim()).subscribe({
         next: items => {
           const loaded = Array.isArray(items) ? items : [];
@@ -170,8 +184,12 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
       next: () => {
         alert('Congratulations! Your mannequin is fully dressed and your name is on the Hall of Fame!');
         this.lastActionMessage = 'Full look locked in! Those pieces have been retired from your closet.';
-        this.closet = this.closet.filter(ci => !idsToRemove.includes(ci.id));
-        this.syncClosetSlots();
+        if (!this.isPremiumPlayer) {
+          this.closet = this.closet.filter(ci => !idsToRemove.includes(ci.id));
+          this.syncClosetSlots();
+        } else {
+          this.releaseInUseSlots(idsToRemove);
+        }
         const updatedEquipped = { ...this.mannequin.equippedItems };
         uniqueItems.forEach(item => {
           if (item.type && updatedEquipped[item.type]?.id === item.id) {
@@ -207,6 +225,15 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
     }));
   }
 
+  private releaseInUseSlots(idsToRemove: string[]): void {
+    const idSet = new Set(idsToRemove);
+    this.closetSlots = this.closetSlots.map(slot => (
+      slot.item && idSet.has(slot.item.id)
+        ? { ...slot, inUse: false }
+        : slot
+    ));
+  }
+
   private isItemEquipped(item: ClothingItem): boolean {
     return Object.values(this.mannequin.equippedItems ?? {}).some(eq => eq?.id === item.id);
   }
@@ -216,6 +243,81 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
     if (slot) {
       slot.inUse = inUse;
     }
+  }
+
+  private assignProfileDetails(player: Partial<Player> | any): void {
+    if (!player) {
+      this.isPremiumPlayer = false;
+      return;
+    }
+    this.isPremiumPlayer = this.resolvePremiumFlag(player);
+    const rawName = (player as any).name ?? (player as any).Name;
+    if (typeof rawName === 'string' && rawName.trim().length > 0) {
+      this.playerDisplayName = rawName.trim();
+    }
+  }
+
+  private resolvePremiumFlag(player: Partial<Player> | any): boolean {
+    if (typeof (player as any).isPremium === 'boolean') {
+      return (player as any).isPremium;
+    }
+    if (typeof (player as any).IsPremium === 'boolean') {
+      return (player as any).IsPremium;
+    }
+    return false;
+  }
+
+  upgradeToPremium(): void {
+    if (!this.playerId) {
+      this.lastActionMessage = 'Start a game to upgrade your closet.';
+      return;
+    }
+    this.playerService.setPremiumStatus(this.playerId.trim(), true).subscribe({
+      next: player => {
+        this.assignProfileDetails(player);
+        this.lastActionMessage = 'Premium closet unlocked! Items will now persist.';
+      },
+      error: err => {
+        console.error('Premium upgrade failed', err);
+        this.lastActionMessage = 'Unable to unlock premium right now. Please try again.';
+      }
+    });
+  }
+
+  get displayPlayerLabel(): string {
+    if (this.playerDisplayName?.trim()) {
+      return this.playerDisplayName.trim();
+    }
+    if (this.playerId?.trim()) {
+      return this.formatPlayerLabel(this.playerId.trim());
+    }
+    return '—';
+  }
+
+  private formatPlayerLabel(id: string): string {
+    if (!id) {
+      return '';
+    }
+    const normalized = id.startsWith('player-') ? id.replace('player-', '') : id;
+    return `Player ${normalized.slice(0, 6)}`;
+  }
+
+  private fetchPlayerProfile(): void {
+    if (!this.playerId) {
+      return;
+    }
+    const trimmed = this.playerId.trim();
+    if (trimmed.length === 0) {
+      return;
+    }
+    this.playerService.getPlayer(trimmed).subscribe({
+      next: player => {
+        this.assignProfileDetails(player);
+      },
+      error: err => {
+        console.warn('Unable to load player profile', err);
+      }
+    });
   }
 
 }

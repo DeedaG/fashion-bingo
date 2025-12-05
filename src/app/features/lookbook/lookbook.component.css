@@ -1,0 +1,126 @@
+.lookbook {
+  background: linear-gradient(135deg, #fff7fb, #f0f6ff);
+  border-radius: 32px;
+  padding: 48px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 141, 198, 0.25);
+  box-shadow: 0 25px 60px rgba(83, 44, 135, 0.1);
+}
+
+.lookbook-header {
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-size: 0.8rem;
+  margin: 0 0 8px;
+  color: #c458b5;
+}
+
+.lookbook-header h2 {
+  margin: 0 0 12px;
+  font-size: 2.2rem;
+  color: #2c125d;
+}
+
+.lookbook-header p {
+  margin: 0;
+  color: #594c7a;
+  line-height: 1.6;
+}
+
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.lookbook-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(77, 46, 129, 0.08);
+  box-shadow: 0 20px 40px rgba(36, 25, 80, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-subtitle {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: #a674ff;
+}
+
+.card-text h3 {
+  margin: 4px 0 8px;
+  color: #2a1a4f;
+}
+
+.card-description {
+  margin: 0;
+  color: #5a4e78;
+  font-size: 0.95rem;
+}
+
+.card-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.item-pill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: #f9f6ff;
+  border: 1px solid rgba(111, 93, 178, 0.15);
+}
+
+.item-thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(53, 27, 92, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-thumbnail img {
+  max-width: 42px;
+  max-height: 42px;
+  object-fit: contain;
+}
+
+.item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-name {
+  font-weight: 600;
+  color: #35265b;
+}
+
+.item-type {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8a7dab;
+}
+
+@media (max-width: 768px) {
+  .lookbook {
+    padding: 32px;
+  }
+}

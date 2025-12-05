@@ -1,7 +1,20 @@
-<h4>Fashion Bingo</h4>
+<header class="app-header">
+  <h4>Fashion Bingo</h4>
+  <nav class="app-tabs">
+    <button (click)="setPanel('info')" [class.active]="activePanel === 'info'">About</button>
+    <button (click)="setPanel('play')" [class.active]="activePanel === 'play'">Play</button>
+    <button (click)="setPanel('closet')" [class.active]="activePanel === 'closet'">Closet</button>
+  </nav>
+</header>
 
-<!-- listen for playerStarted from BingoBoard and set local playerId -->
-<app-bingo-board (playerStarted)="playerId = $event" [playerId]="playerId"></app-bingo-board>
+<section *ngIf="activePanel === 'info'">
+  <app-lookbook></app-lookbook>
+</section>
 
-<!-- pass playerId into ClosetComponent so it can auto-load -->
-<app-closet [playerId]="playerId"></app-closet>
+<section *ngIf="activePanel === 'play'">
+  <app-bingo-board (playerStarted)="handlePlayerStarted($event)" [playerId]="playerId"></app-bingo-board>
+</section>
+
+<section *ngIf="activePanel === 'closet'">
+  <app-closet [playerId]="playerId"></app-closet>
+</section>

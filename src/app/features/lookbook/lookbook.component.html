@@ -1,0 +1,28 @@
+<section class="lookbook">
+  <div class="lookbook-header">
+    <p class="eyebrow">Digital Lookbook</p>
+    <h2>Plan Your Next Bingo Outfit</h2>
+    <p>Every reward you collect in Fashion Bingo is part of a curated set. Preview the spotlight outfits below and aim for the leaderboard-ready combos.</p>
+  </div>
+
+  <div class="lookbook-grid">
+    <article class="lookbook-card" *ngFor="let outfit of outfits">
+      <div class="card-text">
+        <p class="card-subtitle">{{ outfit.subtitle }}</p>
+        <h3>{{ outfit.title }}</h3>
+        <p class="card-description">{{ outfit.description }}</p>
+      </div>
+      <div class="card-items">
+        <div class="item-pill" *ngFor="let item of outfit.items">
+          <div class="item-thumbnail">
+            <img [src]="imageUrl(item.image)" [alt]="item.name" loading="lazy" />
+          </div>
+          <div class="item-info">
+            <span class="item-name">{{ item.name }}</span>
+            <span class="item-type">{{ item.type }}</span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>

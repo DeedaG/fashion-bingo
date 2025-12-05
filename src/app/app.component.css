@@ -1,0 +1,40 @@
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.app-header h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #341451;
+}
+
+.app-tabs {
+  display: flex;
+  gap: 12px;
+}
+
+.app-tabs button {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #f1e9ff;
+  color: #5b2a86;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.app-tabs button.active {
+  background: linear-gradient(135deg, #ff8ad4, #bf7bff);
+  color: #fff;
+  box-shadow: 0 8px 16px rgba(128, 61, 167, 0.25);
+}
+
+section {
+  margin-bottom: 32px;
+}

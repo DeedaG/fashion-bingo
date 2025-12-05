@@ -56,6 +56,9 @@ export class BingoBoardComponent implements OnInit {
 
   startGame(): void {
     this.demoMode = false;
+    this.autoDaubActive = false;
+    this.freeDaubMode = false;
+    this.resetCardsForLivePlay();
     // ensure we have a playerId: prefer input, else generate a client-side id
     if (!this.playerId || this.playerId.trim().length === 0) {
       try {
@@ -68,11 +71,12 @@ export class BingoBoardComponent implements OnInit {
       }
     }
     this.registerOrStartPlayer();
-    // Optionally reset cards and state for a fresh game:
-    // this.loadCards(3);
-    // this.markedNumbersPerCard = this.markedNumbersPerCard.map(() => new Set<number>());
-    // this.bingoDetected = this.bingoDetected.map(() => false);
-    // this.claimedCards = this.claimedCards.map(() => false);
+  }
+
+  private resetCardsForLivePlay(): void {
+    const cardCount = this.cards?.length && this.cards.length > 0 ? this.cards.length : 3;
+    this.loadCards(cardCount);
+    this.lastActionMessage = 'New bingo cards are ready! Listen for the next number.';
   }
 
   private registerOrStartPlayer(): void {

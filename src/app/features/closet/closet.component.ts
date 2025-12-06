@@ -26,7 +26,19 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
   outfitLocked = false;
   isPremiumPlayer = false;
   playerDisplayName = '';
+  celebrationMessage = '';
   readonly topSlotTypes = ["Shirt", "Blouse", "Sweater", "Coat"];
+  private readonly hatRequiredNames = new Set<string>([
+    'Sun Dress',
+    'Summer Sandal',
+    'Sun Hat',
+    'Beach Bag',
+    'T Shirt',
+    'Sneakers',
+    'Jeans',
+    'Crossbody Bag',
+    'Baseball Hat'
+  ]);
 
   private subscriptions = new Subscription();
 
@@ -48,6 +60,11 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
     if (this.playerId && this.playerId.trim().length > 0) {
       this.loadCloset();
     }
+  }
+
+  private requiresHat(): boolean {
+    const equipped = Object.values(this.mannequin.equippedItems ?? {});
+    return equipped.some(item => !!item?.name && this.hatRequiredNames.has(item.name));
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -112,9 +129,11 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
         [...this.topSlotTypes, "Dress"],
         ["Pants", "Dress"],
         ["Shoes"],
-        ["Hat"],
-        ["Necklace"]
+        ["Bag"]
       ];
+      if (this.requiresHat()) {
+        slotRequirements.push(["Hat"]);
+      }
       const fullyDressed = slotRequirements.every(optionSet =>
         optionSet.some(type => !!this.mannequin.equippedItems[type])
       );
@@ -182,7 +201,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
 
     this.closetService.consumeItems(this.playerId, idsToRemove).subscribe({
       next: () => {
-        alert('Congratulations! Your mannequin is fully dressed and your name is on the Hall of Fame!');
+        this.celebrationMessage = 'Flawless finish! Your mannequin has taken the runway and your name is now shining in the Hall of Fame.';
         this.lastActionMessage = 'Full look locked in! Those pieces have been retired from your closet.';
         if (!this.isPremiumPlayer) {
           this.closet = this.closet.filter(ci => !idsToRemove.includes(ci.id));
@@ -318,6 +337,10 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
         console.warn('Unable to load player profile', err);
       }
     });
+  }
+
+  dismissCelebration(): void {
+    this.celebrationMessage = '';
   }
 
 }

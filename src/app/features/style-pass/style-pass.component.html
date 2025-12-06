@@ -1,0 +1,72 @@
+<section class="style-pass-wrapper" *ngIf="playerId; else noPlayer">
+  <div class="hero-card">
+    <div>
+      <p class="eyebrow">Monthly Style Pass</p>
+      <h2>Unlock runway tiers</h2>
+      <p class="subtitle">{{ statusMessage }}</p>
+    </div>
+    <div class="actions">
+      <button class="ghost" type="button" (click)="completeChallenge()" [disabled]="loading">
+        Complete Challenge (+{{ challengeReward || 50 }} pts)
+      </button>
+      <button
+        class="primary"
+        type="button"
+        (click)="upgradePremium()"
+        [disabled]="loading || state?.premiumUnlocked">
+        {{ state?.premiumUnlocked ? 'Premium Active' : 'Unlock Premium (5 gems)' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="progress-card" *ngIf="state">
+    <p>Style Points</p>
+    <div class="progress-track">
+      <div class="progress-meter" [style.width.%]="progressPercent"></div>
+    </div>
+    <p class="points">{{ state.points }} pts</p>
+  </div>
+
+  <div class="tiers-grid" *ngIf="state?.tiers?.length">
+    <div class="tier-row tier-header">
+      <span>Tier</span>
+      <span>Free Reward</span>
+      <span>Premium Reward</span>
+    </div>
+    <div class="tier-row" *ngFor="let tier of state?.tiers">
+      <div class="tier-cell">
+        <p class="tier-name">{{ tier.name }}</p>
+        <p class="tier-points">{{ tier.requiredPoints }} pts</p>
+      </div>
+      <div class="tier-cell">
+        <p>{{ tier.freeReward }}</p>
+        <button
+          type="button"
+          class="claim-btn"
+          (click)="claimTier(tier, 'free')"
+          [disabled]="!tier.freeUnlocked || tier.freeClaimed || loading">
+          {{ tier.freeClaimed ? 'Claimed' : tier.freeUnlocked ? 'Claim Free' : 'Locked' }}
+        </button>
+      </div>
+      <div class="tier-cell">
+        <p>{{ tier.premiumReward }}</p>
+        <button
+          type="button"
+          class="claim-btn premium"
+          (click)="claimTier(tier, 'premium')"
+          [disabled]="!tier.premiumUnlocked || tier.premiumClaimed || loading">
+          {{ tier.premiumClaimed ? 'Claimed' : tier.premiumUnlocked ? 'Claim Premium' : 'Locked' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #noPlayer>
+  <div class="style-pass-wrapper">
+    <div class="hero-card">
+      <h3>Start a game to join the Style Pass.</h3>
+      <p>Your progress syncs once you have a player profile.</p>
+    </div>
+  </div>
+</ng-template>

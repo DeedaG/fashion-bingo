@@ -6,6 +6,7 @@ import { ClosetComponent } from './features/closet/closet.component';
 import { LookbookComponent } from './features/lookbook/lookbook.component';
 import { ShopComponent } from './features/shop/shop.component';
 import { MysteryBoxComponent } from './features/mystery-box/mystery-box.component';
+import { StylePassComponent } from './features/style-pass/style-pass.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ import { MysteryBoxComponent } from './features/mystery-box/mystery-box.componen
     ClosetComponent,
     LookbookComponent,
     ShopComponent,
-    MysteryBoxComponent
+    MysteryBoxComponent,
+    StylePassComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -25,7 +27,7 @@ import { MysteryBoxComponent } from './features/mystery-box/mystery-box.componen
 export class AppComponent implements OnInit {
   title = 'fashion-bingo';
   playerId = ''; // current player id shared between components
-  activePanel: 'info' | 'play' | 'closet' | 'shop' | 'mystery' = 'play';
+  activePanel: 'info' | 'play' | 'closet' | 'shop' | 'mystery' | 'stylepass' = 'play';
 
   private readonly storageKey = 'fashionBingoPlayerId';
 
@@ -40,7 +42,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setPanel(panel: 'info' | 'play' | 'closet' | 'shop' | 'mystery'): void {
+  setPanel(panel: 'info' | 'play' | 'closet' | 'shop' | 'mystery' | 'stylepass'): void {
     this.activePanel = panel;
   }
 

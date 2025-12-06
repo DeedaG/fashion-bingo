@@ -184,8 +184,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 25px;
   gap: 40px;
+}
+
+.current-number {
+  margin-top: 30px;
 }
 
 .label {
@@ -284,7 +287,6 @@
   justify-content: center;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
 }
 
 .booster-offer {

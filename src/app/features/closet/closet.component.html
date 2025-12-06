@@ -1,4 +1,16 @@
 <ng-container *ngIf="closet | filterByType: filterType as filteredItems">
+  <div class="celebration-toast" *ngIf="celebrationMessage">
+    <div class="toast-content">
+      <div class="toast-icon">✨</div>
+      <div>
+        <p class="toast-title">Hall of Fame Update</p>
+        <p class="toast-body">{{ celebrationMessage }}</p>
+      </div>
+    </div>
+    <button type="button" class="toast-close" (click)="dismissCelebration()" aria-label="Dismiss notification">
+      ×
+    </button>
+  </div>
   <section class="closet-wrapper">
     <div class="closet-hero">
       <div class="hero-text">

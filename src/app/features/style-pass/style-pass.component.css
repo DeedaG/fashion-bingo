@@ -1,0 +1,167 @@
+.style-pass-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  color: #1b1430;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #2d1b4a, #47297c);
+  color: #fff;
+  border-radius: 24px;
+  padding: 1.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.hero-card h2 {
+  margin: 0.2rem 0;
+  font-size: 2.1rem;
+}
+
+.subtitle {
+  margin: 0;
+  opacity: 0.85;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.actions button {
+  border: none;
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.actions .ghost {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.actions .primary {
+  background: #ff84c1;
+  color: #381538;
+}
+
+.actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.progress-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(52, 26, 92, 0.1);
+}
+
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background: #f1e4ff;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.progress-meter {
+  height: 100%;
+  background: linear-gradient(90deg, #ff66aa, #ffc371);
+  border-radius: 999px;
+}
+
+.points {
+  margin: 0;
+  font-weight: 700;
+  color: #4f2f6b;
+}
+
+.tiers-grid {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(25, 17, 44, 0.12);
+  overflow: hidden;
+}
+
+.tier-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f1e4ff;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tier-header {
+  background: #f5f0ff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+}
+
+.tier-row:last-child {
+  border-bottom: none;
+}
+
+.tier-cell p {
+  margin: 0;
+}
+
+.tier-name {
+  font-weight: 600;
+  color: #452a72;
+}
+
+.tier-points {
+  color: #8c7da8;
+  font-size: 0.9rem;
+}
+
+.claim-btn {
+  margin-top: 0.4rem;
+  border-radius: 12px;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #efe7ff;
+  color: #4b3970;
+}
+
+.claim-btn.premium {
+  background: #ffe5f4;
+  color: #84235f;
+}
+
+.claim-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .tier-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

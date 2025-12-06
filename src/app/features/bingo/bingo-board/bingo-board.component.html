@@ -44,8 +44,7 @@
         [disabled]="boosterLoading">
         Buy
       </button>
-    </div>
-    <div class="booster-offer">
+    
       <div>
         <p class="booster-name">Auto-Daub Boost</p>
         <p class="booster-cost">Cost: 1 gem</p>
@@ -60,23 +59,27 @@
     <p class="booster-status" *ngIf="boosterStatus">{{ boosterStatus }}</p>
   </div>
 
-<div *ngIf="revealedNumbers.length > 0" class="reveal-box">
-  <p>Upcoming Numbers:</p>
-  <div class="reveal-list">
-    <div *ngFor="let n of revealedNumbers" class="reveal-ball">{{ n }}</div>
-  </div>
-</div>
-
-
-  <div class="history-box">
-    <p class="label">Previous Numbers</p>
-    <div class="history-strip">
-      <div *ngFor="let num of callHistory" class="history-ball">
-        {{ num }}
-      </div>
+  <div *ngIf="revealedNumbers.length > 0" class="reveal-box">
+    <p>Upcoming Numbers:</p>
+    <div class="reveal-list">
+      <div *ngFor="let n of revealedNumbers" class="reveal-ball">{{ n }}</div>
     </div>
   </div>
+  
 </div>
+
+<div style="margin-top: -50px;">
+  <div class="history-box">
+      <p class="label">Previous Numbers</p>
+      <div class="history-strip">
+        <div *ngFor="let num of callHistory" class="history-ball">
+          {{ num }}
+        </div>
+      </div>
+  </div>
+</div>
+
+  
 
 <div class="multi-card-container">
   <div class="bingo-card" *ngFor="let card of cards; let i = index">

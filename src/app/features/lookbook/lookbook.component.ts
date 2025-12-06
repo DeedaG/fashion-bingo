@@ -67,7 +67,7 @@ export class LookbookComponent {
       items: [
         { name: 'Black Dress', image: 'gown-black.png', type: 'Dress' },
         { name: 'Black Stiletto', image: 'stiletto.png', type: 'Shoes' },
-        { name: 'Sparkles', image: 'sparkles.jpg', type: 'Necklace'},
+        { name: 'Sparkles', image: 'sparkles.png', type: 'Necklace'},
         {name: 'Silver Bag', image: 'silver-bag.png', type: 'Bag'}
       ]
     },

@@ -31,7 +31,8 @@ export class LookbookComponent {
       items: [
         { name: 'Sun Dress', image: 'sun-dress.png', type: 'Dress' },
         { name: 'Sun Hat', image: 'straw-hat.png', type: 'Hat' },
-        { name: 'Summer Sandal', image: 'sandal.png', type: 'Shoes' }
+        { name: 'Summer Sandal', image: 'sandal.png', type: 'Shoes' },
+        { name: 'Beach Bag', image: 'beach-bag.jpg', type: 'Bag'},
       ]
     },
     {
@@ -40,9 +41,11 @@ export class LookbookComponent {
       description: 'Layer pearls over jet black silhouettes for instant evening drama.',
       items: [
         { name: 'Black Top', image: 'blouse-black.png', type: 'Blouse' },
-        { name: 'Gold Skirt', image: 'taffeta-skirt.png', type: 'Skirt' },
+        { name: 'Gold Skirt', image: 'gold-skirt.png', type: 'Skirt' },
         { name: 'Black Boot', image: 'boot.png', type: 'Shoes' },
-        { name: 'Pearl Necklace', image: 'pearls.png', type: 'Necklace' }
+        { name: 'Pearl Necklace', image: 'pearls.png', type: 'Necklace' },
+        { name: 'Velvet Black Purse', image: 'purse-black.png', type: 'Bag' },
+        
       ]
     },
     {
@@ -50,10 +53,11 @@ export class LookbookComponent {
       subtitle: 'Outfit #3',
       description: 'Retro denim, neon kicks, and a bright tee for a perfect bingo night.',
       items: [
-        { name: 'T Shirt', image: 'pink-tee.png', type: 'Shirt' },
+        { name: 'T Shirt', image: 'pink-tshirt.png', type: 'Shirt' },
         { name: 'Jeans', image: 'goodjeans.png', type: 'Pants' },
         { name: 'Sneakers', image: 'sneakers.jpg', type: 'Shoes' },
-        { name: 'Baseball Hat', image: 'baseball-hat.png', type: 'Hat' }
+        { name: 'Baseball Hat', image: 'baseball-hat.png', type: 'Hat' },
+        { name: 'Crossbody Bag', image: 'crossbody.jpg', type: 'Bag'},
       ]
     },
     {
@@ -63,7 +67,8 @@ export class LookbookComponent {
       items: [
         { name: 'Black Dress', image: 'gown-black.png', type: 'Dress' },
         { name: 'Black Stiletto', image: 'stiletto.png', type: 'Shoes' },
-        { name: 'Velvet Black Purse', image: 'purse-black.png', type: 'Bag' }
+        { name: 'Sparkles', image: 'sparkles.jpg', type: 'Necklace'},
+        {name: 'Silver Bag', image: 'silver-bag.png', type: 'Bag'}
       ]
     },
     {

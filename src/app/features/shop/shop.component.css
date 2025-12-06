@@ -1,0 +1,117 @@
+.shop-panel {
+  background: #fff;
+  border-radius: 28px;
+  padding: 32px;
+  border: 1px solid rgba(79, 31, 128, 0.08);
+  box-shadow: 0 20px 50px rgba(38, 19, 59, 0.1);
+}
+
+.shop-header {
+  margin-bottom: 24px;
+}
+
+.shop-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  font-size: 0.75rem;
+  color: #b16cff;
+  margin: 0 0 6px;
+}
+
+.shop-header h2 {
+  margin: 0 0 8px;
+  color: #2f1347;
+}
+
+.shop-copy {
+  margin: 0;
+  color: #5c4a7e;
+}
+
+.shop-status {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #f2ecff;
+  color: #563692;
+  font-weight: 600;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.offer-card {
+  background: #fdfcff;
+  border-radius: 20px;
+  border: 1px solid rgba(65, 19, 91, 0.08);
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  gap: 14px;
+}
+
+.offer-art {
+  width: 100%;
+  min-height: 150px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255, 205, 223, 0.4), rgba(205, 211, 255, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.offer-art img {
+  max-width: 140px;
+  max-height: 140px;
+  object-fit: contain;
+}
+
+.offer-body h3 {
+  margin: 0;
+  color: #2f2150;
+}
+
+.offer-type {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: #8c77b5;
+}
+
+.offer-description {
+  margin: 0;
+  color: #5c4b72;
+  font-size: 0.9rem;
+}
+
+.offer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.offer-cost {
+  font-weight: 700;
+  color: #5b2d82;
+}
+
+.offer-buy {
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  background: linear-gradient(120deg, #ff9ac6, #c77bff);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(155, 74, 173, 0.25);
+}
+
+.offer-buy:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

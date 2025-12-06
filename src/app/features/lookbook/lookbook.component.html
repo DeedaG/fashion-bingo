@@ -15,7 +15,17 @@
       <div class="card-items">
         <div class="item-pill" *ngFor="let item of outfit.items">
           <div class="item-thumbnail">
-            <img [src]="imageUrl(item.image)" [alt]="item.name" loading="lazy" />
+            <img
+              [src]="imageUrl(item.image)"
+              [alt]="item.name"
+              loading="lazy"
+              [ngClass]="{
+                'gold-skirt': item.name === 'Gold Skirt',
+                'pink-tee': item.name === 'T Shirt',
+                'sparkles': item.name === 'Sparkles',
+                'silver-bag': item.name === 'Silver Bag',
+                'neon-sneakers': item.name === 'Sneakers'
+              }" />
           </div>
           <div class="item-info">
             <span class="item-name">{{ item.name }}</span>

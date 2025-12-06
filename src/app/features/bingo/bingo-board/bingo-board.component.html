@@ -77,7 +77,17 @@
       <p class="reward-label">Bingo Reward</p>
       <h2>{{ reward.name }}</h2>
       <div class="reward-art">
-        <img *ngIf="reward.imageUrl" [src]="closetService.getImageSrc(reward)" [alt]="reward.name">
+        <img
+          *ngIf="reward.imageUrl"
+          [src]="closetService.getImageSrc(reward)"
+          [alt]="reward.name"
+          [ngClass]="{
+            'gold-skirt': reward?.name === 'Gold Skirt',
+            'pink-tee': reward?.name === 'T Shirt',
+            'sparkles': reward?.name === 'Sparkles',
+            'silver-bag': reward?.name === 'Silver Bag',
+            'neon-sneakers': reward?.name === 'Sneakers'
+          }">
         <div *ngIf="!reward.imageUrl" class="reward-placeholder">{{ reward.type }}</div>
       </div>
       <!-- <p class="reward-rarity">Rarity: {{ reward.rarity }}</p> -->

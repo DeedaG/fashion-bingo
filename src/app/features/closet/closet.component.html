@@ -65,7 +65,16 @@
           <div class="hanger-wire"></div>
           <div class="hanger-hook"></div>
           <div class="hanger-tag" *ngIf="slot.item">{{ slot.item.rarity | titlecase }}</div>
-          <div class="item-card" *ngIf="slot.item && !slot.inUse; else hangerPlaceholder" [ngClass]="{'gold-skirt': slot.item?.name === 'Gold Skirt'}">
+          <div
+            class="item-card"
+            *ngIf="slot.item && !slot.inUse; else hangerPlaceholder"
+            [ngClass]="{
+              'gold-skirt': slot.item?.name === 'Gold Skirt',
+              'pink-tee': slot.item?.name === 'T Shirt',
+              'sparkles': slot.item?.name === 'Sparkles',
+              'silver-bag': slot.item?.name === 'Silver Bag',
+              'neon-sneakers': slot.item?.name === 'Sneakers'
+            }">
             <img [src]="closetService.getImageSrc(slot.item)" [alt]="slot.item.name" />
             <p class="item-name">{{ slot.item.name }}</p>
             <p class="item-type">{{ slot.item.type }}</p>
@@ -151,7 +160,10 @@
           <div class="side-slot">
             <p class="slot-label">Purse</p>
             <div class="side-item" *ngIf="mannequin.equippedItems['Bag']">
-              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Bag'])" class="side-image" />
+              <img
+                [src]="closetService.getImageSrc(mannequin.equippedItems['Bag'])"
+                class="side-image"
+                [attr.data-item-name]="mannequin.equippedItems['Bag']?.name" />
               <button
                 type="button"
                 class="unequip-btn side"
@@ -181,7 +193,10 @@
           <div class="side-slot">
             <p class="slot-label">Necklace</p>
             <div class="side-item" *ngIf="mannequin.equippedItems['Necklace']">
-              <img [src]="closetService.getImageSrc(mannequin.equippedItems['Necklace'])" class="side-image" />
+              <img
+                [src]="closetService.getImageSrc(mannequin.equippedItems['Necklace'])"
+                class="side-image"
+                [attr.data-item-name]="mannequin.equippedItems['Necklace']?.name" />
               <button
                 type="button"
                 class="unequip-btn side"

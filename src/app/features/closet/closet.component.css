@@ -345,13 +345,33 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .item-card.gold-skirt img {
-  transform: scale(2.3);
   transform-origin: center;
   mix-blend-mode: multiply;
   filter: contrast(1.08) saturate(1.05);
 }
 .item-card.gold-skirt {
   overflow: visible;
+}
+.item-card.pink-tee img {
+  transform: scale(1.2) translateY(-6px);
+  transform-origin: center;
+  mix-blend-mode: multiply;
+  clip-path: inset(20% 0 0 0);
+}
+.item-card.sparkles img {
+  transform: scale(1.4) translateY(-4px);
+  mix-blend-mode: multiply;
+  clip-path: inset(18% 0 0 0);
+}
+.item-card.silver-bag img {
+  transform: scale(1.5);
+  mix-blend-mode: multiply;
+  clip-path: inset(10% 0 0 0);
+}
+.item-card.neon-sneakers img {
+  transform: scale(1.4);
+  mix-blend-mode: multiply;
+  clip-path: inset(10% 0 0 0);
 }
 
 .item-card:hover {
@@ -498,6 +518,20 @@
   width: 115px;
   height: 135px;
   top: 110px;
+  mix-blend-mode: multiply;
+  clip-path: inset(15% 0 0 0);
+}
+.side-image[data-item-name="Silver Bag"] {
+  mix-blend-mode: multiply;
+  clip-path: inset(12% 0 0 0);
+}
+.side-image[data-item-name="Sparkles"] {
+  mix-blend-mode: multiply;
+  clip-path: inset(10% 0 10% 0);
+}
+.side-image[data-item-name="Sneakers"] {
+  mix-blend-mode: multiply;
+  clip-path: inset(8% 0 0 0);
 }
 .layer.pants {
   top: 260px;

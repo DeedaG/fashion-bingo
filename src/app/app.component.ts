@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BingoBoardComponent } from './features/bingo/bingo-board/bingo-board.component';
 import { ClosetComponent } from './features/closet/closet.component';
 import { LookbookComponent } from './features/lookbook/lookbook.component';
+import { ShopComponent } from './features/shop/shop.component';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ import { LookbookComponent } from './features/lookbook/lookbook.component';
     HttpClientModule,
     BingoBoardComponent,
     ClosetComponent,
-    LookbookComponent
+    LookbookComponent,
+    ShopComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -21,7 +23,7 @@ import { LookbookComponent } from './features/lookbook/lookbook.component';
 export class AppComponent implements OnInit {
   title = 'fashion-bingo';
   playerId = ''; // current player id shared between components
-  activePanel: 'info' | 'play' | 'closet' = 'play';
+  activePanel: 'info' | 'play' | 'closet' | 'shop' = 'play';
 
   private readonly storageKey = 'fashionBingoPlayerId';
 
@@ -36,7 +38,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setPanel(panel: 'info' | 'play' | 'closet'): void {
+  setPanel(panel: 'info' | 'play' | 'closet' | 'shop'): void {
     this.activePanel = panel;
   }
 

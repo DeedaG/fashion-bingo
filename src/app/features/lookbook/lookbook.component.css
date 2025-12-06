@@ -101,6 +101,29 @@
   max-height: 42px;
   object-fit: contain;
 }
+.item-thumbnail img.gold-skirt {
+  transform-origin: center;
+}
+.item-thumbnail img.pink-tee {
+  transform: scale(1.2) translateY(-2px);
+  mix-blend-mode: multiply;
+  clip-path: inset(10% 0 0 0);
+}
+.item-thumbnail img.sparkles {
+  transform: scale(1.3);
+  mix-blend-mode: multiply;
+  clip-path: inset(5% 0 15% 0);
+}
+.item-thumbnail img.silver-bag {
+  transform: scale(1.35);
+  mix-blend-mode: multiply;
+  clip-path: inset(6% 0 0 0);
+}
+.item-thumbnail img.neon-sneakers {
+  transform: scale(1.3);
+  mix-blend-mode: multiply;
+  clip-path: inset(6% 0 0 0);
+}
 
 .item-info {
   display: flex;

@@ -141,6 +141,30 @@
   max-height: 80%;
   object-fit: contain;
 }
+.reward-art img.gold-skirt {
+  transform-origin: center;
+  mix-blend-mode: multiply;
+}
+.reward-art img.pink-tee {
+  transform: scale(1.3);
+  mix-blend-mode: multiply;
+  clip-path: inset(12% 0 0 0);
+}
+.reward-art img.sparkles {
+  transform: scale(1.4);
+  mix-blend-mode: multiply;
+  clip-path: inset(8% 0 10% 0);
+}
+.reward-art img.silver-bag {
+  transform: scale(1.5);
+  mix-blend-mode: multiply;
+  clip-path: inset(10% 0 0 0);
+}
+.reward-art img.neon-sneakers {
+  transform: scale(1.5);
+  mix-blend-mode: multiply;
+  clip-path: inset(10% 0 0 0);
+}
 
 .reward-placeholder {
   font-size: 1.2rem;

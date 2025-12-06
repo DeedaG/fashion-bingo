@@ -14,16 +14,51 @@
   </div>
 
   <div class="powerup-bar">
-  <button class="powerup-btn" (click)="activateFreeDaub()">Free Daub</button>
+    <button
+      class="powerup-btn"
+      (click)="activateFreeDaub()"
+      [disabled]="(boosterInventory?.freeDaubTokens ?? 0) === 0">
+      Free Daub ({{ boosterInventory?.freeDaubTokens ?? 0 }})
+    </button>
 
-  <button class="powerup-btn" (click)="activateReveal()">Reveal 3</button>
+    <button class="powerup-btn" (click)="activateReveal()">Reveal 3</button>
 
-  <button class="powerup-btn" 
-          [class.active]="autoDaubActive"
-          (click)="activateAutoDaub()">
-    Auto Daub (30s)
-  </button>
-</div>
+    <button
+      class="powerup-btn"
+      [class.active]="autoDaubActive"
+      (click)="activateAutoDaub()"
+      [disabled]="(boosterInventory?.autoDaubBoosts ?? 0) === 0">
+      Auto Daub (30s) ({{ boosterInventory?.autoDaubBoosts ?? 0 }})
+    </button>
+  </div>
+
+  <div class="booster-shop" *ngIf="playerId">
+    <div class="booster-offer">
+      <div>
+        <p class="booster-name">Free Daub Token</p>
+        <p class="booster-cost">Cost: 150 coins</p>
+      </div>
+      <button
+        class="booster-buy"
+        (click)="purchaseBooster('free-daub')"
+        [disabled]="boosterLoading">
+        Buy
+      </button>
+    </div>
+    <div class="booster-offer">
+      <div>
+        <p class="booster-name">Auto-Daub Boost</p>
+        <p class="booster-cost">Cost: 1 gem</p>
+      </div>
+      <button
+        class="booster-buy"
+        (click)="purchaseBooster('auto-daub')"
+        [disabled]="boosterLoading">
+        Buy
+      </button>
+    </div>
+    <p class="booster-status" *ngIf="boosterStatus">{{ boosterStatus }}</p>
+  </div>
 
 <div *ngIf="revealedNumbers.length > 0" class="reveal-box">
   <p>Upcoming Numbers:</p>

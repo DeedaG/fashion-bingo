@@ -1,11 +1,108 @@
-<div class="box-area">
-  <button (click)="openBox()" [disabled]="isOpening">Open Mystery Box</button>
-</div>
+<section class="mystery-wrapper">
+  <div class="crate-card">
+    <div class="crate-copy">
+      <p class="eyebrow">Loot Crate</p>
+      <h2>Glam Mystery Box</h2>
+      <p>
+        Spend coins or gems to crack open a curated surprise from the runway archives.
+        Each box guarantees a wearable item plus bonus currency.
+      </p>
+      <div class="balance-tags">
+        <div class="tag">
+          <span>Coins</span>
+          <strong>{{ economy?.coins ?? 0 }}</strong>
+        </div>
+        <div class="tag">
+          <span>Gems</span>
+          <strong>{{ economy?.gems ?? 0 }}</strong>
+        </div>
+      </div>
+      <div class="cta-row">
+        <button
+          class="coin-btn"
+          type="button"
+          (click)="openBox('coins')"
+          [disabled]="isOpening || !canAfford('coins')">
+          Open for {{ coinCost }} Coins
+        </button>
+        <button
+          class="gem-btn"
+          type="button"
+          (click)="openBox('gems')"
+          [disabled]="isOpening || !canAfford('gems')">
+          Open for {{ gemCost }} Gem{{ gemCost > 1 ? 's' : '' }}
+        </button>
+      </div>
+      <p class="status">{{ statusMessage }}</p>
+    </div>
+    <div class="crate-visual">
+      <div class="crate" [class.open]="showConfetti" [class.shake]="isOpening">
+        <div class="lid" [class.opening]="isOpening || showConfetti"></div>
+        <div class="sparkle one"></div>
+        <div class="sparkle two"></div>
+        <div class="sparkle three"></div>
+        <div class="confetti" *ngIf="showConfetti">
+          <span *ngFor="let piece of confettiPieces; let idx = index" [style.--i]="idx" [style.--offset]="idx - 6"></span>
+        </div>
+      </div>
+      <p class="pricing-note">
+        Legendary drops add gems. Epics refund part of your spend.
+      </p>
+    </div>
+  </div>
 
-<div *ngIf="reward" class="reward-popup">
-  <h2>{{reward.rarity}} Reward!</h2>
-  <img [src]="closetService.getImageSrc(reward.clothing)" />
-  <p>{{reward.clothing.name}}</p>
-  <p>Coins: +{{reward.coins}}</p>
-  <p *ngIf="reward.gems > 0">Gems: +{{reward.gems}}</p>
-</div>
+  <div class="history-card">
+    <div class="history-header">
+      <h3>Crate History</h3>
+      <span *ngIf="historyLoading">Loading…</span>
+    </div>
+    <div *ngIf="historyEntries.length === 0 && !historyLoading" class="history-empty">
+      Crack a crate to begin your streak and track every drop.
+    </div>
+    <ul class="history-list" *ngIf="historyEntries.length > 0">
+      <li *ngFor="let entry of historyEntries | slice:0:6">
+        <div class="entry-meta">
+          <strong>{{ entry.itemName || 'Mystery' }}</strong>
+          <span>{{ entry.dateOpened | date:'short' }}</span>
+        </div>
+        <div class="entry-details">
+          <span class="rarity-pill" [ngClass]="entry.rarity.toLowerCase()">{{ entry.rarity }}</span>
+          <span>{{ entry.itemType }}</span>
+          <span>+{{ entry.coinsAwarded }} coins</span>
+          <span *ngIf="entry.gemsAwarded > 0">+{{ entry.gemsAwarded }} gems</span>
+        </div>
+      </li>
+    </ul>
+    <div *ngIf="coinSources" class="coin-sources">
+      <div>
+        <p class="label">Coins Earned</p>
+        <strong>+{{ coinSources.coinsFromMysteryBoxes }}</strong>
+      </div>
+      <div>
+        <p class="label">Coins Spent</p>
+        <strong>-{{ coinSources.coinsSpentOnMysteryBoxes }}</strong>
+      </div>
+      <div>
+        <p class="label">Net Gain</p>
+        <strong [class.positive]="coinSources.netFromMysteryBoxes >= 0">
+          {{ coinSources.netFromMysteryBoxes >= 0 ? '+' : ''}}{{ coinSources.netFromMysteryBoxes }}
+        </strong>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="reward" class="reward-card">
+    <p class="rarity">{{ reward.rarity }} find</p>
+    <div class="reward-body">
+      <img [src]="closetService.getImageSrc(reward.item)" [alt]="reward.item?.name || 'Mystery reward'" />
+      <div class="reward-copy">
+        <h3>{{ reward.item?.name }}</h3>
+        <p>{{ reward.item?.type }} · {{ reward.item?.style }}</p>
+        <ul>
+          <li>Bonuses: +{{ reward.bonusCoins }} coins</li>
+          <li *ngIf="reward.bonusGems > 0">+{{ reward.bonusGems }} gems</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

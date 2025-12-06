@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BingoService } from '../../../core/services/bingo.service';
 import { ClosetService } from '../../../core/services/closet.service';
 import { PlayerService } from '../../../core/services/player.service';
+import { BoosterService } from '../../../core/services/booster.service';
 import { ClothingItem } from '../../../core/models/clothing-item.model';
+import { BoosterInventory } from '../../../core/models/booster-inventory.model';
 
 @Component({
   selector: 'app-bingo-board',
@@ -41,11 +43,15 @@ export class BingoBoardComponent implements OnInit {
   rewardModalVisible = false;
   rewardDeliveryMessage = '';
   rewardDelivering = false;
+  boosterInventory: BoosterInventory | null = null;
+  boosterStatus = '';
+  boosterLoading = false;
 
   constructor(
     private bingoService: BingoService,
     private closetService: ClosetService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private boosterService: BoosterService
   ) {}
 
   ngOnInit(): void {
@@ -112,6 +118,7 @@ export class BingoBoardComponent implements OnInit {
   private emitPlayerStarted(): void {
     this.lastActionMessage = 'Game started! Now you must manually mark the called number.';
     this.playerStarted.emit(this.playerId);
+    this.loadBoosters();
   }
 
   loadCard(): void {
@@ -286,8 +293,13 @@ export class BingoBoardComponent implements OnInit {
 
   //free daub mode
   activateFreeDaub(): void {
-    this.freeDaubMode = true;
-    this.lastActionMessage = 'Free Daub activated — tap any cell to daub it once.';
+    if (!this.ensureBoosterAvailable('free-daub')) {
+      return;
+    }
+    this.consumeBooster('free-daub', () => {
+      this.freeDaubMode = true;
+      this.lastActionMessage = 'Free Daub activated — tap any cell to daub it once.';
+    });
   }
 
   //reveal 3 numbers
@@ -301,15 +313,21 @@ export class BingoBoardComponent implements OnInit {
 
   //auto daub
   activateAutoDaub(): void {
-    if (this.autoDaubActive) return;
+    if (this.autoDaubActive) {
+      return;
+    }
+    if (!this.ensureBoosterAvailable('auto-daub')) {
+      return;
+    }
+    this.consumeBooster('auto-daub', () => {
+      this.autoDaubActive = true;
+      this.lastActionMessage = 'Auto-Daub activated for 30 seconds.';
 
-    this.autoDaubActive = true;
-    this.lastActionMessage = 'Auto-Daub activated for 30 seconds.';
-
-    this.autoDaubTimer = setTimeout(() => {
-      this.autoDaubActive = false;
-      this.lastActionMessage = 'Auto-Daub ended.';
-    }, 30000);
+      this.autoDaubTimer = setTimeout(() => {
+        this.autoDaubActive = false;
+        this.lastActionMessage = 'Auto-Daub ended.';
+      }, 30000);
+    });
   }
 
   closeRewardModal(): void {
@@ -375,5 +393,75 @@ export class BingoBoardComponent implements OnInit {
     if (diag2) return true;
 
     return false;
+  }
+
+  purchaseBooster(type: 'free-daub' | 'auto-daub'): void {
+    if (!this.playerId || this.playerId.trim().length === 0) {
+      this.boosterStatus = 'Start a game to shop for boosters.';
+      return;
+    }
+    this.boosterLoading = true;
+    this.boosterService.purchaseBooster(this.playerId.trim(), type).subscribe({
+      next: inv => {
+        this.boosterInventory = inv;
+        this.boosterStatus = type === 'free-daub'
+          ? 'Free Daub token added to your satchel.'
+          : 'Auto-Daub boost added.';
+        this.boosterLoading = false;
+      },
+      error: err => {
+        const msg = err?.error ?? 'Purchase failed.';
+        this.boosterStatus = typeof msg === 'string' ? msg : 'Purchase failed.';
+        this.boosterLoading = false;
+      }
+    });
+  }
+
+  private loadBoosters(): void {
+    if (!this.playerId || this.playerId.trim().length === 0) {
+      return;
+    }
+    this.boosterService.getInventory(this.playerId.trim()).subscribe({
+      next: inv => {
+        this.boosterInventory = inv;
+      },
+      error: () => {
+        this.boosterStatus = 'Unable to load booster inventory.';
+      }
+    });
+  }
+
+  private ensureBoosterAvailable(type: 'free-daub' | 'auto-daub'): boolean {
+    if (!this.playerId || this.playerId.trim().length === 0) {
+      this.boosterStatus = 'Start a game to use boosters.';
+      return false;
+    }
+    const inv = this.boosterInventory;
+    if (!inv) {
+      this.boosterStatus = 'Loading boosters…';
+      return false;
+    }
+    const available = type === 'free-daub' ? inv.freeDaubTokens : inv.autoDaubBoosts;
+    if (available <= 0) {
+      this.boosterStatus = 'Purchase more boosters to use this power-up.';
+      return false;
+    }
+    return true;
+  }
+
+  private consumeBooster(type: 'free-daub' | 'auto-daub', onSuccess: () => void): void {
+    if (!this.playerId || this.playerId.trim().length === 0) {
+      return;
+    }
+    this.boosterService.consumeBooster(this.playerId.trim(), type).subscribe({
+      next: inv => {
+        this.boosterInventory = inv;
+        onSuccess();
+      },
+      error: err => {
+        const msg = err?.error ?? 'Unable to use booster.';
+        this.boosterStatus = typeof msg === 'string' ? msg : 'Unable to use booster.';
+      }
+    });
   }
 }

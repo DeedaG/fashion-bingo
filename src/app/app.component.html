@@ -4,6 +4,7 @@
     <button (click)="setPanel('info')" [class.active]="activePanel === 'info'">About</button>
     <button (click)="setPanel('play')" [class.active]="activePanel === 'play'">Play</button>
     <button (click)="setPanel('closet')" [class.active]="activePanel === 'closet'">Closet</button>
+    <button (click)="setPanel('mystery')" [class.active]="activePanel === 'mystery'">Mystery Box</button>
     <button (click)="setPanel('shop')" [class.active]="activePanel === 'shop'">Shop</button>
   </nav>
 </header>
@@ -18,6 +19,10 @@
 
 <section *ngIf="activePanel === 'closet'">
   <app-closet [playerId]="playerId"></app-closet>
+</section>
+
+<section *ngIf="activePanel === 'mystery'">
+  <app-mystery-box [playerId]="playerId"></app-mystery-box>
 </section>
 
 <section *ngIf="activePanel === 'shop'">

@@ -5,6 +5,7 @@ import { BingoBoardComponent } from './features/bingo/bingo-board/bingo-board.co
 import { ClosetComponent } from './features/closet/closet.component';
 import { LookbookComponent } from './features/lookbook/lookbook.component';
 import { ShopComponent } from './features/shop/shop.component';
+import { MysteryBoxComponent } from './features/mystery-box/mystery-box.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { ShopComponent } from './features/shop/shop.component';
     BingoBoardComponent,
     ClosetComponent,
     LookbookComponent,
-    ShopComponent
+    ShopComponent,
+    MysteryBoxComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
@@ -23,7 +25,7 @@ import { ShopComponent } from './features/shop/shop.component';
 export class AppComponent implements OnInit {
   title = 'fashion-bingo';
   playerId = ''; // current player id shared between components
-  activePanel: 'info' | 'play' | 'closet' | 'shop' = 'play';
+  activePanel: 'info' | 'play' | 'closet' | 'shop' | 'mystery' = 'play';
 
   private readonly storageKey = 'fashionBingoPlayerId';
 
@@ -38,7 +40,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  setPanel(panel: 'info' | 'play' | 'closet' | 'shop'): void {
+  setPanel(panel: 'info' | 'play' | 'closet' | 'shop' | 'mystery'): void {
     this.activePanel = panel;
   }
 

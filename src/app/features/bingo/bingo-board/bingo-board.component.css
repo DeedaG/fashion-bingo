@@ -273,6 +273,72 @@
   border-color: #ff2e85;
 }
 
+.powerup-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.booster-shop {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.booster-offer {
+  background: #fff;
+  border: 2px dashed #ffd2eb;
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 220px;
+  box-shadow: 0 6px 20px rgba(255, 102, 170, 0.1);
+}
+
+.booster-name {
+  margin: 0;
+  font-weight: 600;
+  color: #4a2c5c;
+}
+
+.booster-cost {
+  margin: 2px 0 0;
+  font-size: 0.85rem;
+  color: #a06ea5;
+}
+
+.booster-buy {
+  border: none;
+  background: #ff66aa;
+  color: #fff;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.booster-buy:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.booster-buy:not(:disabled):hover {
+  transform: translateY(-2px);
+}
+
+.booster-status {
+  width: 100%;
+  text-align: center;
+  color: #7c3f64;
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
 .reveal-box {
   background: white;
   border: 2px solid #ff99cc;

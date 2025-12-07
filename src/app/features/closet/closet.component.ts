@@ -5,14 +5,16 @@ import { ClosetService } from '../../core/services/closet.service';
 import { ClothingItem } from '../../core/models/clothing-item.model';
 import { Mannequin } from '../../core/models/mannequin.model';
 import { FilterByTypePipe } from '../../shared/pipes/filter-by-type.pipe';
+import { HallOfFameBoardComponent } from '../../shared/components/hall-of-fame-board/hall-of-fame-board.component';
 import { environment } from '../../../../environments/environment';
 import { PlayerService } from '../../core/services/player.service';
 import { Player } from '../../core/models/player.model';
+import { HallOfFameService } from '../../core/services/hall-of-fame.service';
 
 @Component({
   selector: 'app-closet',
   standalone: true,
-  imports: [CommonModule, FilterByTypePipe],
+  imports: [CommonModule, FilterByTypePipe, HallOfFameBoardComponent],
   templateUrl: './closet.component.html',
   styleUrls: ['./closet.component.css']
 })
@@ -27,6 +29,8 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
   isPremiumPlayer = false;
   playerDisplayName = '';
   celebrationMessage = '';
+  showHallOfFameConfetti = false;
+  private confettiTimer?: any;
   readonly topSlotTypes = ["Shirt", "Blouse", "Sweater", "Coat"];
   private readonly hatRequiredNames = new Set<string>([
     'Sun Dress',
@@ -39,10 +43,15 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
     'Crossbody Bag',
     'Baseball Hat'
   ]);
+  readonly confettiPieces = Array.from({ length: 30 });
 
   private subscriptions = new Subscription();
 
-  constructor(private closetService: ClosetService, private playerService: PlayerService) {}
+  constructor(
+    private closetService: ClosetService,
+    private playerService: PlayerService,
+    private hallOfFameService: HallOfFameService
+  ) {}
 
   ngOnInit(): void {
     // subscribe for real-time updates
@@ -83,6 +92,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.clearConfettiTimer();
   }
 
   loadCloset(): void {
@@ -202,20 +212,11 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
     this.closetService.consumeItems(this.playerId, idsToRemove).subscribe({
       next: () => {
         this.celebrationMessage = 'Flawless finish! Your mannequin has taken the runway and your name is now shining in the Hall of Fame.';
+        this.triggerHallOfFameConfetti();
+        this.recordHallOfFameEntry(Array.from(uniqueItems.values()));
         this.lastActionMessage = 'Full look locked in! Those pieces have been retired from your closet.';
-        if (!this.isPremiumPlayer) {
-          this.closet = this.closet.filter(ci => !idsToRemove.includes(ci.id));
-          this.syncClosetSlots();
-        } else {
-          this.releaseInUseSlots(idsToRemove);
-        }
-        const updatedEquipped = { ...this.mannequin.equippedItems };
-        uniqueItems.forEach(item => {
-          if (item.type && updatedEquipped[item.type]?.id === item.id) {
-            delete updatedEquipped[item.type];
-          }
-        });
-        this.mannequin = { equippedItems: updatedEquipped };
+        this.closet = this.closet.filter(ci => !idsToRemove.includes(ci.id));
+        this.syncClosetSlots();
         this.outfitLocked = false;
         try { this.closetService.notifyClosetUpdated(this.playerId); } catch { /* ignore */ }
       },
@@ -242,15 +243,6 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
       item,
       inUse: this.isItemEquipped(item)
     }));
-  }
-
-  private releaseInUseSlots(idsToRemove: string[]): void {
-    const idSet = new Set(idsToRemove);
-    this.closetSlots = this.closetSlots.map(slot => (
-      slot.item && idSet.has(slot.item.id)
-        ? { ...slot, inUse: false }
-        : slot
-    ));
   }
 
   private isItemEquipped(item: ClothingItem): boolean {
@@ -341,6 +333,34 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
 
   dismissCelebration(): void {
     this.celebrationMessage = '';
+  }
+
+  private recordHallOfFameEntry(items: ClothingItem[]): void {
+    if (!this.playerId || this.playerId.trim().length === 0) {
+      return;
+    }
+    const outfitNames = items
+      .map(item => item.name?.trim())
+      .filter((name): name is string => !!name && name.length > 0);
+    this.hallOfFameService.recordEntry(this.playerId.trim(), this.playerDisplayName, outfitNames).subscribe({
+      next: () => {},
+      error: () => {}
+    });
+  }
+
+  private triggerHallOfFameConfetti(): void {
+    this.showHallOfFameConfetti = true;
+    this.clearConfettiTimer();
+    this.confettiTimer = setTimeout(() => {
+      this.showHallOfFameConfetti = false;
+    }, 4000);
+  }
+
+  private clearConfettiTimer(): void {
+    if (this.confettiTimer) {
+      clearTimeout(this.confettiTimer);
+      this.confettiTimer = undefined;
+    }
   }
 
 }

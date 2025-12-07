@@ -239,6 +239,53 @@
   overflow: visible;
 }
 
+.confetti-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.confetti-overlay span {
+  position: absolute;
+  width: 6px;
+  height: 14px;
+  background: linear-gradient(180deg, #ff67c5, #ffd86d);
+  top: -10px;
+  left: var(--left, 50%);
+  opacity: 0;
+  border-radius: 3px;
+  animation: confettiFall 1.2s ease forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.confetti-overlay span:nth-child(3n) {
+  background: linear-gradient(180deg, #7d9bff, #c68bff);
+}
+
+.confetti-overlay span:nth-child(3n+1) {
+  background: linear-gradient(180deg, #ffb347, #ffcc33);
+}
+
+.confetti-overlay span:nth-child(3n+2) {
+  background: linear-gradient(180deg, #7ce5ff, #a099ff);
+}
+
+@keyframes confettiFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--drift, 0px), 180px, 0) rotate(360deg);
+  }
+}
+
 .closet-door {
   width: 60px;
   background: linear-gradient(180deg, #fef6ff, #f2e4ff);
@@ -480,6 +527,10 @@
   gap: 24px;
 }
 
+.hall-of-fame-panel {
+  margin-top: 32px;
+}
+
 .wardrobe-column {
   background: #fff;
   border: 2px solid #f0e6ff;
@@ -597,9 +648,9 @@
   clip-path: inset(6% 0 0 0);
 }
 .layer.pants[data-item-name="Gold Skirt"] {
-  top: 160px;
-  width: 420px;
-  height: 520px;
+  top: 230px;
+  width: 180px;
+  height: 200px;
   clip-path: inset(10% 0 0 0);
   mix-blend-mode: multiply;
   background-color: transparent;

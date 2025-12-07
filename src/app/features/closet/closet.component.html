@@ -56,6 +56,15 @@
   </section>
 
   <section class="closet-stage">
+    <div class="confetti-overlay" *ngIf="showHallOfFameConfetti">
+      <span
+        *ngFor="let piece of confettiPieces; let i = index"
+        [style.--delay]="i * 0.05 + 's'"
+        [style.--left]="(i * 3.5 % 100) + '%'"
+        [style.--drift]="(((i % 8) - 3) * 12) + 'px'"></span>
+    </div>
+
+   
     <div class="closet-door left-door">
       <div class="door-panel"></div>
       <div class="door-knob"></div>
@@ -245,6 +254,10 @@
       </ul>
       <p class="status-hint">Need more pieces? Score Bingos to unlock rewards!</p>
     </div>
+  </section>
+
+  <section class="hall-of-fame-panel">
+    <app-hall-of-fame-board></app-hall-of-fame-board>
   </section>
 </ng-container>
       <ng-template #hangerPlaceholder>

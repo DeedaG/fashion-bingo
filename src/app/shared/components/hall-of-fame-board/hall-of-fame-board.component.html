@@ -1,0 +1,21 @@
+<section class="hof-board">
+  <header class="hof-header">
+    <h3>Hall of Fame</h3>
+    <button class="refresh-btn" (click)="loadEntries()" [disabled]="loading">↻</button>
+  </header>
+
+  <p class="hof-message" *ngIf="loading">Loading dazzling looks…</p>
+  <p class="hof-message error" *ngIf="!loading && error">{{ error }}</p>
+  <p class="hof-message" *ngIf="!loading && !error && entries.length === 0">No outfits have reached the runway yet.</p>
+
+  <ul class="hof-list" *ngIf="entries.length > 0">
+    <li *ngFor="let entry of entries">
+      <div class="avatar-circle">{{ entry.playerName | slice:0:1 }}</div>
+      <div class="hof-meta">
+        <strong>{{ entry.playerName }}</strong>
+        <p>{{ entry.outfitSummary || 'Custom look' }}</p>
+      </div>
+      <span class="hof-date">{{ entry.dateAchieved | date:'short' }}</span>
+    </li>
+  </ul>
+</section>

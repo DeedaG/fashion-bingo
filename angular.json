@@ -25,7 +25,13 @@
           "configurations": {
             "production": {
               "optimization": true,
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,

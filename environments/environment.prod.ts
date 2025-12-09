@@ -1,5 +1,7 @@
+const origin = typeof window !== 'undefined' ? window.location.origin : '';
+
 export const environment = {
   production: true,
-  apiUrl: '',
-  apiBase: ''
+  apiUrl: '/api',
+  apiBase: origin
 };

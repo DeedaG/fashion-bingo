@@ -3,7 +3,9 @@ export interface StylePassTier {
   name: string;
   requiredPoints: number;
   freeReward: string;
+  freeRewardImageUrl?: string | null;
   premiumReward: string;
+  premiumRewardImageUrl?: string | null;
   freeUnlocked: boolean;
   freeClaimed: boolean;
   premiumUnlocked: boolean;

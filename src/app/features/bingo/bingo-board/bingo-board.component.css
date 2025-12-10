@@ -1,6 +1,17 @@
 .bingo-screen {
-  padding: 20px;
+  padding: 32px;
   text-align: center;
+  position: relative;
+  border-radius: 24px;
+  background-image: url('/assets/woman.jpg');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.bingo-screen > * {
+  position: relative;
+  z-index: 1;
 }
 
 .bingo-title {
@@ -120,7 +131,7 @@
 
 .reward-modal h2 {
   margin: 0 0 12px;
-  color: #31204f;
+  color: #391b10;
 }
 
 .reward-art {
@@ -176,7 +187,7 @@
 
 .reward-message {
   margin: 12px 0 20px;
-  color: #5f4c79;
+  color: #391b10
 }
 
 /* NUMBER CALLER UI */
@@ -304,13 +315,13 @@
 .booster-name {
   margin: 0;
   font-weight: 600;
-  color: #4a2c5c;
+  color: #391b10;
 }
 
 .booster-cost {
   margin: 2px 0 0;
   font-size: 0.85rem;
-  color: #a06ea5;
+  color: #854931;
 }
 
 .booster-buy {
@@ -373,6 +384,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  position: relative;
 }
 
 .bingo-card {
@@ -435,15 +447,73 @@
 
 .bingo-indicator {
   position: absolute;
-  top: 10px;
+  top: -15px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid #ff66aa;
-  border-radius: 16px;
-  padding: 8px 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  z-index: 2;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  z-index: 3;
+}
+.reward-lady {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  animation: lady-walk 3s ease-in-out infinite;
+  padding: 6px 10px;
+}
+
+.reward-lady img {
+  width: 96px;
+  height: auto;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.25));
+}
+
+.reward-sign {
+  background: linear-gradient(135deg, rgba(255, 102, 170, 0.95), rgba(255, 154, 209, 0.95));
+  border-radius: 24px;
+  padding: 12px 30px;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: 0 10px 20px rgba(255, 102, 170, 0.3);
+  position: relative;
+}
+
+.reward-sign::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 18px;
+  width: 18px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  filter: blur(6px);
+}
+
+@keyframes lady-walk {
+  0% {
+    transform: translateX(-20px) scale(0.95);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(0) scale(1);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(30px) scale(0.98);
+    opacity: 0;
+  }
 }
 
 .demo-mode {

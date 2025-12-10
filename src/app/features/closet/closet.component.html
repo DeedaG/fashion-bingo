@@ -15,8 +15,8 @@
     <div class="closet-hero">
       <div class="hero-text">
         <p class="hero-kicker">Fashion Vault</p>
-        <h2>Wardrobe Control Center</h2>
-        <p class="hero-subtitle">
+        <h2 style="color:white;">Wardrobe Control Center</h2>
+        <p class="hero-subtitle" style="color:white;">
           Spin the bingo wheel, unlock rewards, and hang them proudly on your neon rail.
         </p>
         <div class="closet-controls">
@@ -85,7 +85,12 @@
           [class.in-use]="slot.inUse">
           <div class="hanger-wire"></div>
           <div class="hanger-hook"></div>
-          <div class="hanger-tag" *ngIf="slot.item">{{ slot.item.rarity | titlecase }}</div>
+          <div class="hanger-tag" *ngIf="slot.item">
+            <span class="tag-string" aria-hidden="true"></span>
+            <span class="tag-hole" aria-hidden="true"></span>
+            <span style="margin-left: 10px;">{{ slot.item.rarity | titlecase }}</span>
+            
+          </div>
           <div
             class="item-card"
             *ngIf="slot.item && !slot.inUse; else hangerPlaceholder"
@@ -113,7 +118,7 @@
 
   <section class="closet-bottom">
     <div class="wardrobe-column mannequin-col" *ngIf="closet.length > 0">
-      <h3>Runway Preview</h3>
+      <h3 style="color: white;">Runway Preview</h3>
       <div class="mannequin-stage">
         <div class="mannequin-display">
           <div class="mannequin-base">
@@ -231,28 +236,28 @@
           </div>
         </div>
       </div>
-      <p class="mannequin-tip">
+      <p style="color: white;" class="mannequin-tip">
         Equip a full look (Shirt, Pants, Shoes, Hat, Necklace) to hit the Hall of Fame!
       </p>
     </div>
 
     <div class="wardrobe-column status-col">
-      <h3>Closet Notes</h3>
+      <h3 style="color: white;">Closet Notes</h3>
       <ul class="status-list">
         <li>
-          <span>Total Pieces</span>
-          <strong>{{ closet.length }}</strong>
+          <span style="color: white;">Total Pieces</span>
+          <strong style="color: white;">{{ closet.length }}</strong>
         </li>
         <li>
-          <span>Showing</span>
-          <strong>{{ filteredItems.length }} {{ filterType | titlecase }}</strong>
+          <span style="color: white;">Showing</span>
+          <strong style="color: white;">{{ filteredItems.length }} {{ filterType | titlecase }}</strong>
         </li>
         <li>
-          <span>Player ID</span>
-          <strong>{{ playerId || 'Not set' }}</strong>
+          <span style="color: white;">Player ID</span>
+          <strong style="color: white;">{{ playerId || 'Not set' }}</strong>
         </li>
       </ul>
-      <p class="status-hint">Need more pieces? Score Bingos to unlock rewards!</p>
+      <p style="color: white;" class="status-hint">Need more pieces? Score Bingos to unlock rewards!</p>
     </div>
   </section>
 

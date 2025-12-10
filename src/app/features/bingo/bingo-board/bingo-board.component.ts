@@ -240,6 +240,7 @@ export class BingoBoardComponent implements OnInit {
       this.rewardModalVisible = true;
       this.rewardDeliveryMessage = 'Placing your prize in the closet...';
       this.rewardDelivering = true;
+      this.focusRewardModal();
 
       if (reward) {
         this.closetService.addItem(this.playerId, reward).subscribe(() => {
@@ -335,6 +336,26 @@ export class BingoBoardComponent implements OnInit {
     if (!this.rewardDelivering) {
       this.reward = null;
       this.rewardDeliveryMessage = '';
+    }
+  }
+
+  private focusRewardModal(): void {
+    const scrollToTop = () => {
+      try {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch {
+        try {
+          document?.documentElement?.scrollTo?.(0, 0);
+        } catch {
+          // ignore
+        }
+      }
+    };
+
+    if (typeof window !== 'undefined' && 'requestAnimationFrame' in window) {
+      window.requestAnimationFrame(() => scrollToTop());
+    } else {
+      setTimeout(scrollToTop, 0);
     }
   }
 

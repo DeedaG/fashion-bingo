@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { StylePassService } from '../../core/services/style-pass.service';
 import { StylePassState, StylePassTier } from '../../core/models/style-pass.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-style-pass',
@@ -133,5 +134,12 @@ export class StylePassComponent implements OnInit, OnChanges {
       return err.error;
     }
     return fallback;
+  }
+
+  getRewardImageUrl(path?: string | null): string {
+    if (!path) {
+      return '';
+    }
+    return path.startsWith('http') ? path : `${environment.apiBase}${path}`;
   }
 }

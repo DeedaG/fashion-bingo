@@ -39,24 +39,44 @@
         <p class="tier-points">{{ tier.requiredPoints }} pts</p>
       </div>
       <div class="tier-cell">
-        <p>{{ tier.freeReward }}</p>
-        <button
-          type="button"
-          class="claim-btn"
-          (click)="claimTier(tier, 'free')"
-          [disabled]="!tier.freeUnlocked || tier.freeClaimed || loading">
-          {{ tier.freeClaimed ? 'Claimed' : tier.freeUnlocked ? 'Claim Free' : 'Locked' }}
-        </button>
+        <div class="reward">
+          <div class="reward-thumb" *ngIf="tier.freeRewardImageUrl">
+            <img
+              [src]="getRewardImageUrl(tier.freeRewardImageUrl)"
+              [alt]="tier.freeReward"
+              loading="lazy" />
+          </div>
+          <div class="reward-details">
+            <p>{{ tier.freeReward }}</p>
+            <button
+              type="button"
+              class="claim-btn"
+              (click)="claimTier(tier, 'free')"
+              [disabled]="!tier.freeUnlocked || tier.freeClaimed || loading">
+              {{ tier.freeClaimed ? 'Claimed' : tier.freeUnlocked ? 'Claim Free' : 'Locked' }}
+            </button>
+          </div>
+        </div>
       </div>
       <div class="tier-cell">
-        <p>{{ tier.premiumReward }}</p>
-        <button
-          type="button"
-          class="claim-btn premium"
-          (click)="claimTier(tier, 'premium')"
-          [disabled]="!tier.premiumUnlocked || tier.premiumClaimed || loading">
-          {{ tier.premiumClaimed ? 'Claimed' : tier.premiumUnlocked ? 'Claim Premium' : 'Locked' }}
-        </button>
+        <div class="reward">
+          <div class="reward-thumb" *ngIf="tier.premiumRewardImageUrl">
+            <img
+              [src]="getRewardImageUrl(tier.premiumRewardImageUrl)"
+              [alt]="tier.premiumReward"
+              loading="lazy" />
+          </div>
+          <div class="reward-details">
+            <p>{{ tier.premiumReward }}</p>
+            <button
+              type="button"
+              class="claim-btn premium"
+              (click)="claimTier(tier, 'premium')"
+              [disabled]="!tier.premiumUnlocked || tier.premiumClaimed || loading">
+              {{ tier.premiumClaimed ? 'Claimed' : tier.premiumUnlocked ? 'Claim Premium' : 'Locked' }}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

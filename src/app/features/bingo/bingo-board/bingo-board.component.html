@@ -100,8 +100,18 @@
 
     <!-- Show BINGO! overlay/message if this card has bingo and not yet claimed -->
     <div *ngIf="bingoDetected[i] && !claimedCards[i]" class="bingo-indicator">
-      🎉 <strong>BINGO!</strong> <br>
-      <button class="win-btn" (click)="claimReward(i)">Claim Reward</button>
+      <div
+        class="reward-lady"
+        role="button"
+        tabindex="0"
+        (click)="claimReward(i)"
+        (keyup.enter)="claimReward(i)"
+        (keyup.space)="claimReward(i)">
+        <img src="/assets/fashion-lady.png" alt="Stylish player holding reward ticket" />
+        <div class="reward-sign">
+          <span>Claim Reward</span>
+        </div>
+      </div>
     </div>
     <!-- Show claimed message if already claimed -->
     <div *ngIf="claimedCards[i]" class="claimed-indicator">
@@ -109,28 +119,27 @@
     </div>
   </div>
 </div>
+</div>
 
-  <div *ngIf="rewardModalVisible && reward" class="reward-overlay">
-    <div class="reward-modal">
-      <p class="reward-label">Bingo Reward</p>
-      <h2>{{ reward.name }}</h2>
-      <div class="reward-art">
-        <img
-          *ngIf="reward.imageUrl"
-          [src]="closetService.getImageSrc(reward)"
-          [alt]="reward.name"
-          [ngClass]="{
-            'gold-skirt': reward?.name === 'Gold Skirt',
-            'pink-tee': reward?.name === 'T Shirt',
-            'sparkles': reward?.name === 'Sparkles',
-            'silver-bag': reward?.name === 'Silver Bag',
-            'neon-sneakers': reward?.name === 'Sneakers'
-          }">
-        <div *ngIf="!reward.imageUrl" class="reward-placeholder">{{ reward.type }}</div>
-      </div>
-      <!-- <p class="reward-rarity">Rarity: {{ reward.rarity }}</p> -->
-      <p class="reward-message">{{ rewardDeliveryMessage }}</p>
-      <button class="win-btn" (click)="closeRewardModal()">Back to Bingo</button>
+<div *ngIf="rewardModalVisible && reward" class="reward-overlay">
+  <div class="reward-modal">
+    <p class="reward-label">Bingo Reward</p>
+    <h2>{{ reward.name }}</h2>
+    <div class="reward-art">
+      <img
+        *ngIf="reward.imageUrl"
+        [src]="closetService.getImageSrc(reward)"
+        [alt]="reward.name"
+        [ngClass]="{
+          'gold-skirt': reward?.name === 'Gold Skirt',
+          'pink-tee': reward?.name === 'T Shirt',
+          'sparkles': reward?.name === 'Sparkles',
+          'silver-bag': reward?.name === 'Silver Bag',
+          'neon-sneakers': reward?.name === 'Sneakers'
+        }">
+      <div *ngIf="!reward.imageUrl" class="reward-placeholder">{{ reward.type }}</div>
     </div>
+    <p class="reward-message">{{ rewardDeliveryMessage }}</p>
+    <button class="win-btn" (click)="closeRewardModal()">Back to Bingo</button>
   </div>
 </div>

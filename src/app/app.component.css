@@ -10,7 +10,7 @@
 .app-header h4 {
   margin: 0;
   font-size: 1.5rem;
-  color: #341451;
+  color: #391b10;
 }
 
 .app-tabs {
@@ -24,13 +24,13 @@
   padding: 8px 18px;
   font-weight: 600;
   cursor: pointer;
-  background: #f1e9ff;
-  color: #5b2a86;
+  background: #f2d2d2;
+  color: #391b10;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .app-tabs button.active {
-  background: linear-gradient(135deg, #ff8ad4, #bf7bff);
+  background: linear-gradient(135deg, #391b10, #cd803c);
   color: #fff;
   box-shadow: 0 8px 16px rgba(128, 61, 167, 0.25);
 }

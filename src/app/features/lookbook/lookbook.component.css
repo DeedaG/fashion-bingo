@@ -1,10 +1,12 @@
 .lookbook {
-  background: linear-gradient(135deg, #fff7fb, #f0f6ff);
-  border-radius: 32px;
-  padding: 48px;
-  margin-bottom: 40px;
-  border: 1px solid rgba(255, 141, 198, 0.25);
-  box-shadow: 0 25px 60px rgba(83, 44, 135, 0.1);
+  padding: 32px;
+  text-align: center;
+  position: relative;
+  border-radius: 24px;
+  background-image: url('../../../assets/sunburst.png');
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
 }
 
 .lookbook-header {
@@ -23,12 +25,12 @@
 .lookbook-header h2 {
   margin: 0 0 12px;
   font-size: 2.2rem;
-  color: #2c125d;
+  color: #392309;
 }
 
 .lookbook-header p {
   margin: 0;
-  color: #594c7a;
+  color: #703915;
   line-height: 1.6;
 }
 
@@ -37,6 +39,7 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
 }
+
 
 .lookbook-card {
   background: #fff;
@@ -54,17 +57,17 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.75rem;
-  color: #a674ff;
+  color: #ffac74;
 }
 
 .card-text h3 {
   margin: 4px 0 8px;
-  color: #2a1a4f;
+  color: #4f301a;
 }
 
 .card-description {
   margin: 0;
-  color: #5a4e78;
+  color: #78604e;
   font-size: 0.95rem;
 }
 
@@ -132,7 +135,7 @@
 
 .item-name {
   font-weight: 600;
-  color: #35265b;
+  color: #5b3d26;
 }
 
 .item-type {

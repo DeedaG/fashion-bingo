@@ -1,38 +1,43 @@
 .shop-panel {
-  background: #fff;
+  background-image: url('../../../assets/arches.jpg');
   border-radius: 28px;
   padding: 32px;
-  border: 1px solid rgba(79, 31, 128, 0.08);
-  box-shadow: 0 20px 50px rgba(38, 19, 59, 0.1);
+  border: 1px solid rgba(128, 75, 31, 0.08);
+  box-shadow: 0 20px 50px rgba(59, 34, 19, 0.1);
 }
 
 .shop-header {
   margin-bottom: 24px;
+  background-color: white;
+  border-radius: 28px;
+  padding: 32px;
+  border: 1px solid rgba(128, 75, 31, 0.08);
+  box-shadow: 0 20px 50px rgba(59, 34, 19, 0.1);
 }
 
 .shop-eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.35em;
   font-size: 0.75rem;
-  color: #b16cff;
+  color: #ffb36c;
   margin: 0 0 6px;
 }
 
 .shop-header h2 {
   margin: 0 0 8px;
-  color: #2f1347;
+  color: #472313;
 }
 
 .shop-copy {
   margin: 0;
-  color: #5c4a7e;
+  color: #7e604a;
 }
 
 .shop-status {
   margin-top: 12px;
   padding: 10px 14px;
   border-radius: 12px;
-  background: #f2ecff;
+  background: #fff5ec;
   color: #563692;
   font-weight: 600;
 }
@@ -44,7 +49,7 @@
 }
 
 .offer-card {
-  background: #fdfcff;
+  background: #fffdfc;
   border-radius: 20px;
   border: 1px solid rgba(65, 19, 91, 0.08);
   display: flex;
@@ -71,7 +76,7 @@
 
 .offer-body h3 {
   margin: 0;
-  color: #2f2150;
+  color: #503921;
 }
 
 .offer-type {
@@ -79,12 +84,12 @@
   text-transform: uppercase;
   letter-spacing: 0.2em;
   font-size: 0.7rem;
-  color: #8c77b5;
+  color: #b59477;
 }
 
 .offer-description {
   margin: 0;
-  color: #5c4b72;
+  color: #725b4b;
   font-size: 0.9rem;
 }
 
@@ -97,14 +102,14 @@
 
 .offer-cost {
   font-weight: 700;
-  color: #5b2d82;
+  color: #82502d;
 }
 
 .offer-buy {
   border: none;
   border-radius: 999px;
   padding: 8px 18px;
-  background: linear-gradient(120deg, #ff9ac6, #c77bff);
+  background: linear-gradient(120deg, #ff9ac6, #ffa97b);
   color: #fff;
   font-weight: 600;
   cursor: pointer;

@@ -1,8 +1,8 @@
 .bingo-screen {
-  padding: 10px 24px 28px;
+  padding: 10px 5px 5px;
   text-align: center;
   position: relative;
-  border-radius: 24px;
+  border-radius: 10px;
   background-image: url('/assets/woman.jpg');
   background-size: cover;
   background-position: center;
@@ -14,12 +14,7 @@
   z-index: 1;
 }
 
-.bingo-title {
-  font-size: 36px;
-  margin-bottom: 20px;
-  color: #ff66aa;
-  font-weight: bold;
-}
+
 
 .bingo-grid {
   display: inline-block;
@@ -27,7 +22,7 @@
   background: white;
   border-radius: 16px;
   border: 3px solid #ffb5d8;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .row {
@@ -196,7 +191,6 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
-  margin-bottom: 16px;
 }
 
 .current-number {
@@ -232,7 +226,7 @@
 }
 
 .history-box {
-  
+  margin-top: -30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -573,9 +567,9 @@
 }
 
 @keyframes demo-lady-walk {
-  0% { transform: translateX(50px); opacity: 0; }
+  0% { transform: translateX(75px); opacity: 0; }
   15% { opacity: 1; }
   50% { transform: translateX(0); }
   85% { opacity: 1; }
-  100% { transform: translateX(-50px); opacity: 0; }
+  100% { transform: translateX(-75px); opacity: 0; }
 }

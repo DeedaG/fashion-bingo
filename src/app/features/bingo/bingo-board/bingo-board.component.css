@@ -1,5 +1,5 @@
 .bingo-screen {
-  padding: 32px;
+  padding: 10px 24px 28px;
   text-align: center;
   position: relative;
   border-radius: 24px;
@@ -196,10 +196,11 @@
   justify-content: center;
   align-items: center;
   gap: 40px;
+  margin-bottom: 16px;
 }
 
 .current-number {
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 .label {
@@ -231,6 +232,7 @@
 }
 
 .history-box {
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -260,7 +262,7 @@
 .powerup-bar {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  margin: 8px 0 16px;
   gap: 12px;
 }
 
@@ -447,7 +449,7 @@
 
 .bingo-indicator {
   position: absolute;
-  top: -15px;
+  top: 5px;
   left: 50%;
   transform: translateX(-50%);
   background: transparent;
@@ -526,12 +528,54 @@
 
 .start-game-btn {
   padding: 8px 16px;
-  background: #ff66aa;
-  color: white;
+  background: #ff8766;
+  color: rgb(255, 255, 255);
   border: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
   margin-left: 8px;
   transition: 0.2s;
+}
+.demo-lady-banner {
+  position: fixed;
+  bottom: 275px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1500;
+}
+
+.demo-lady {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  animation: demo-lady-walk 6s linear infinite;
+  position: relative;
+}
+
+.demo-lady img {
+  height: 120px;
+  width: auto;
+  border-radius: 16px;
+  filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.25));
+}
+
+.demo-sign {
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 999px;
+  padding: 12px 26px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: auto;
+}
+
+@keyframes demo-lady-walk {
+  0% { transform: translateX(50px); opacity: 0; }
+  15% { opacity: 1; }
+  50% { transform: translateX(0); }
+  85% { opacity: 1; }
+  100% { transform: translateX(-50px); opacity: 0; }
 }

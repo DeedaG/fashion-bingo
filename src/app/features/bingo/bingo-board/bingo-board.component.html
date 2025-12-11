@@ -1,10 +1,5 @@
 <div class="bingo-screen">
 
-  <div *ngIf="demoMode" style="margin-bottom:12px; color:#555;">
-    <strong class="demo-mode">Demo mode:</strong> Numbers are auto-marked so you can see how bingo works.<br>
-    Click <button class="start-game-btn" (click)="startGame()">Start Game</button> to play manually.
-  </div>
-
 <div class="caller-box">
   <div class="current-number">
     <p class="label">Now Calling</p>
@@ -68,14 +63,12 @@
   
 </div>
 
-<div style="margin-top: -50px;">
-  <div class="history-box">
-      <p class="label">Previous Numbers</p>
-      <div class="history-strip">
-        <div *ngFor="let num of callHistory" class="history-ball">
-          {{ num }}
-        </div>
-      </div>
+<div class="history-box">
+  <p class="label">Previous Numbers</p>
+  <div class="history-strip">
+    <div *ngFor="let num of callHistory" class="history-ball">
+      {{ num }}
+    </div>
   </div>
 </div>
 
@@ -119,6 +112,18 @@
     </div>
   </div>
 </div>
+
+  <div class="demo-lady-banner" *ngIf="demoMode" aria-hidden="true">
+  <div class="demo-lady">
+    <img src="/assets/tulle-lady.png" alt="" />
+    <div class="demo-sign">
+      <span>Demo Mode · Press</span>
+      <button class="start-game-btn" type="button" (click)="startGame()" [disabled]="!demoMode">Start Game</button>
+      <span>to play</span>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <div *ngIf="rewardModalVisible && reward" class="reward-overlay">

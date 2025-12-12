@@ -29,6 +29,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
   isPremiumPlayer = false;
   playerDisplayName = '';
   celebrationMessage = '';
+  celebrationItems: ClothingItem[] = [];
   showHallOfFameConfetti = false;
   private confettiTimer?: any;
   readonly topSlotTypes = ["Shirt", "Blouse", "Sweater", "Coat"];
@@ -125,6 +126,14 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   equipItem(item: ClothingItem): void {
+    if (this.celebrationMessage) {
+      this.lastActionMessage = 'Close the Hall of Fame celebration before dressing the mannequin.';
+      return;
+    }
+    if (this.outfitLocked) {
+      this.lastActionMessage = 'Completed outfits are being recorded. One moment…';
+      return;
+    }
     this.closetService.equipItem(this.playerId, item).subscribe(man => {
       const updated = man?.equippedItems ?? {};
       const current = this.mannequin?.equippedItems ?? {};
@@ -134,6 +143,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
           ...updated
         }
       };
+      this.syncClosetSlots();
 
       const slotRequirements: string[][] = [
         [...this.topSlotTypes, "Dress"],
@@ -211,12 +221,13 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
 
     this.closetService.consumeItems(this.playerId, idsToRemove).subscribe({
       next: () => {
-        this.celebrationMessage = 'Flawless finish! Your mannequin has taken the runway and your name is now shining in the Hall of Fame.';
+        this.celebrationMessage = 'Flawless finish! You created a great outfit! Your name is now shining in the Hall of Fame.';
         this.triggerHallOfFameConfetti();
         this.recordHallOfFameEntry(Array.from(uniqueItems.values()));
         this.lastActionMessage = 'Full look locked in! Those pieces have been retired from your closet.';
         this.closet = this.closet.filter(ci => !idsToRemove.includes(ci.id));
         this.syncClosetSlots();
+        this.clearMannequin();
         this.outfitLocked = false;
         try { this.closetService.notifyClosetUpdated(this.playerId); } catch { /* ignore */ }
       },
@@ -333,6 +344,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
 
   dismissCelebration(): void {
     this.celebrationMessage = '';
+    this.celebrationItems = [];
   }
 
   private recordHallOfFameEntry(items: ClothingItem[]): void {
@@ -346,6 +358,7 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
       next: () => {},
       error: () => {}
     });
+    this.celebrationItems = items;
   }
 
   private triggerHallOfFameConfetti(): void {
@@ -361,6 +374,11 @@ export class ClosetComponent implements OnInit, OnDestroy, OnChanges {
       clearTimeout(this.confettiTimer);
       this.confettiTimer = undefined;
     }
+  }
+
+  private clearMannequin(): void {
+    this.mannequin = { equippedItems: {} };
+    this.syncClosetSlots();
   }
 
 }

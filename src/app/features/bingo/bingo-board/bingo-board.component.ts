@@ -48,6 +48,8 @@ export class BingoBoardComponent implements OnInit {
   boosterStatus = '';
   boosterLoading = false;
   depositModalVisible = false;
+  bankCoins = 0;
+  bankGems = 0;
 
   constructor(
     private bingoService: BingoService,
@@ -121,6 +123,7 @@ export class BingoBoardComponent implements OnInit {
     this.lastActionMessage = 'Game started! Now you must manually mark the called number.';
     this.playerStarted.emit(this.playerId);
     this.loadBoosters();
+    this.refreshBankBalance();
   }
 
   loadCard(): void {
@@ -226,6 +229,11 @@ export class BingoBoardComponent implements OnInit {
 
   // Claim reward for a specific card index. Only works if bingoDetected and not already claimed.
   claimReward(cardIndex: number): void {
+    const playerKey = (this.playerId || '').trim();
+    if (!playerKey) {
+      this.lastActionMessage = 'Start a game to save rewards to your closet.';
+      return;
+    }
     if (!this.bingoDetected[cardIndex]) {
       this.lastActionMessage = `No bingo on card ${cardIndex + 1} to claim.`;
       return;
@@ -235,7 +243,7 @@ export class BingoBoardComponent implements OnInit {
       return;
     }
 
-    this.bingoService.claimReward(this.playerId).subscribe(reward => {
+    this.bingoService.claimReward(playerKey).subscribe(reward => {
       this.reward = reward;
       this.claimedCards[cardIndex] = true;
       this.lastActionMessage = `You won: ${reward.name} (card ${cardIndex + 1})`;
@@ -245,12 +253,12 @@ export class BingoBoardComponent implements OnInit {
       this.focusRewardModal();
 
       if (reward) {
-        this.closetService.addItem(this.playerId, reward).subscribe(() => {
+        this.closetService.addItem(playerKey, reward).subscribe(() => {
           this.lastActionMessage = `${reward.name} added to your closet!`;
           this.rewardDelivering = false;
           this.rewardDeliveryMessage = `${reward.name} is hanging in your closet now.`;
           // notify via service (real-time flow)
-          try { this.closetService.notifyClosetUpdated(this.playerId); } catch { /* ignore */ }
+          try { this.closetService.notifyClosetUpdated(playerKey); } catch { /* ignore */ }
         }, err => {
           this.lastActionMessage = `Failed to add ${reward.name} to closet.`;
           this.rewardDelivering = false;
@@ -307,10 +315,22 @@ export class BingoBoardComponent implements OnInit {
 
   //reveal 3 numbers
   activateReveal(): void {
-    this.bingoService.revealNextNumbers().subscribe(numbers => {
-      this.revealedNumbers = numbers;
+    this.bingoService.revealNextNumbers().subscribe({
+      next: numbers => {
+        const revealed = (numbers || []).filter(n => n > 0);
+        if (revealed.length === 0) {
+          this.lastActionMessage = 'All numbers have already been called.';
+          this.revealedNumbers = [];
+          return;
+        }
 
-      setTimeout(() => this.revealedNumbers = [], 8000);
+        this.revealedNumbers = revealed;
+        this.lastActionMessage = `Heads up! ${revealed.join(', ')} are coming soon.`;
+        setTimeout(() => this.revealedNumbers = [], 8000);
+      },
+      error: () => {
+        this.lastActionMessage = 'Unable to reveal upcoming numbers right now.';
+      }
     });
   }
 
@@ -371,6 +391,35 @@ export class BingoBoardComponent implements OnInit {
 
   closeDepositModal(): void {
     this.depositModalVisible = false;
+  }
+
+  handleBalanceChange(balance: { coins: number; gems: number }): void {
+    this.bankCoins = balance.coins;
+    this.bankGems = balance.gems;
+  }
+
+  private refreshBankBalance(): void {
+    const key = (this.playerId || '').trim();
+    if (!key) {
+      this.bankCoins = 0;
+      this.bankGems = 0;
+      return;
+    }
+    this.playerService.getPlayer(key).subscribe({
+      next: player => {
+        if (player?.economy) {
+          this.bankCoins = player.economy.coins ?? 0;
+          this.bankGems = player.economy.gems ?? 0;
+        } else {
+          this.bankCoins = player?.coins ?? 0;
+          this.bankGems = 0;
+        }
+      },
+      error: () => {
+        this.bankCoins = 0;
+        this.bankGems = 0;
+      }
+    });
   }
 
   // returns true if the card at cardIndex has a completed row/col/diagonal

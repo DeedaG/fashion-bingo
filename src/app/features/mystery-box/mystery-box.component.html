@@ -106,3 +106,23 @@
     </div>
   </div>
 </section>
+
+<div *ngIf="rewardModalVisible && reward" class="box-reward-overlay">
+  <div class="box-reward-modal">
+    <button class="modal-close" type="button" (click)="closeRewardModal()" aria-label="Close reward popup">×</button>
+    <p class="modal-label">Mystery Drop</p>
+    <h3>{{ reward.item?.name }}</h3>
+    <p class="modal-subtitle">{{ reward.rarity }} · {{ reward.item?.type }}</p>
+    <div class="modal-art">
+      <img
+        [src]="closetService.getImageSrc(reward.item)"
+        [alt]="reward.item?.name || 'Mystery reward art'" />
+    </div>
+    <ul class="modal-details">
+      <li>+{{ reward.bonusCoins }} bonus coins</li>
+      <li *ngIf="reward.bonusGems > 0">+{{ reward.bonusGems }} bonus gems</li>
+      <li *ngIf="reward.item?.style">Style: {{ reward.item?.style }}</li>
+    </ul>
+    <button class="modal-action" type="button" (click)="closeRewardModal()">Back to crates</button>
+  </div>
+</div>

@@ -407,31 +407,72 @@
   font-size: 0.9rem;
 }
 
+.reveal-box-1 {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  padding: 12px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 25px;
+}
+
 .reveal-box {
-  background: white;
-  border: 2px solid #ff99cc;
-  border-radius: 12px;
-  padding: 5px 5px;
-  margin-bottom: -40px;
-  display: table-column;
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  padding: 12px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 25px;
+}
+
+.reveal-title {
+  
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .reveal-list {
-  display: table-column;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .reveal-ball {
-  width: 50px;
-  height: 50px;
-  background: #fff2f8;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #ff66aa, #ffb677);
   border-radius: 50%;
-  border: 2px solid #ff99cc;
+  border: 2px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
+  color: #391b10;
+  box-shadow: 0 4px 12px rgba(255, 153, 204, 0.35);
+}
+
+.bank-balance {
+  
+}
+
+@media (max-width: 960px) {
+  .reveal-box {
+    position: static;
+    margin: 16px auto 0;
+    align-items: center;
+  }
+
+  .reveal-list {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 .multi-card-container {
@@ -528,7 +569,7 @@
 }
 
 .reward-sign {
-  background: linear-gradient(135deg, rgba(255, 102, 170, 0.95), rgba(255, 154, 209, 0.95));
+  background: linear-gradient(135deg, rgba(249, 80, 50, 0.95), rgba(255, 173, 154, 0.95));
   border-radius: 24px;
   padding: 12px 30px;
   color: #fff;

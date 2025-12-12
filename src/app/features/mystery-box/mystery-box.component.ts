@@ -25,6 +25,7 @@ export class MysteryBoxComponent implements OnInit, OnChanges, OnDestroy {
   isOpening = false;
   statusMessage = 'Open a glam crate to snag bonuses and surprise runway items.';
   reward: MysteryBoxOpenResult | null = null;
+  rewardModalVisible = false;
   pricing?: MysteryBoxPricing;
   economy: Economy = { coins: 0, gems: 0, energy: 0 };
   historyEntries: MysteryBoxHistoryEntry[] = [];
@@ -97,6 +98,7 @@ export class MysteryBoxComponent implements OnInit, OnChanges, OnDestroy {
     this.mysteryBoxService.openBox(this.playerId.trim(), payment).subscribe({
       next: result => {
         this.reward = result;
+        this.rewardModalVisible = true;
         this.economy = result.economy ?? this.economy;
         this.statusMessage = `You pulled a ${result.rarity} item!`;
         this.isOpening = false;
@@ -114,6 +116,10 @@ export class MysteryBoxComponent implements OnInit, OnChanges, OnDestroy {
         this.isOpening = false;
       }
     });
+  }
+
+  closeRewardModal(): void {
+    this.rewardModalVisible = false;
   }
 
   private resetState(): void {

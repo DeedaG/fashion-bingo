@@ -1,15 +1,39 @@
 <ng-container *ngIf="closet | filterByType: filterType as filteredItems">
-  <div class="celebration-toast" *ngIf="celebrationMessage">
-    <div class="toast-content">
-      <div class="toast-icon">✨</div>
-      <div>
-        <p class="toast-title">Hall of Fame Update</p>
-        <p class="toast-body">{{ celebrationMessage }}</p>
+  <div class="celebration-overlay" *ngIf="celebrationMessage">
+    <span class="spotlight left"></span>
+    <span class="spotlight right"></span>
+    <span class="spotlight top-left"></span>
+    <span class="spotlight top-right"></span>
+    <div class="celebration-modal">
+      <button
+        type="button"
+        class="celebration-close"
+        (click)="dismissCelebration()"
+        aria-label="Dismiss hall of fame message">
+        ×
+      </button>
+      <p class="celebration-label">Hall of Fame</p>
+      <p class="celebration-copy">{{ celebrationMessage }}</p>
+      <div class="celebration-outfit" *ngIf="celebrationItems.length > 0">
+        <div
+          class="celebration-outfit-item"
+          *ngFor="let item of celebrationItems">
+          <img [src]="closetService.getImageSrc(item)" [alt]="item.name" />
+          <p>{{ item.name }}</p>
+          <small>{{ item.type }}</small>
+        </div>
+      </div>
+      <button class="celebration-action" type="button" (click)="dismissCelebration()">
+        Keep Styling
+      </button>
+      <div class="celebration-confetti">
+        <span
+          *ngFor="let piece of confettiPieces; let i = index"
+          [style.left]="(i * 7 % 100) + '%'"
+          [style.animationDelay]="(i * 0.08) + 's'"
+          [style.background]="i % 3 === 0 ? '#ff8ed1' : i % 3 === 1 ? '#ffe066' : '#9be7ff'"></span>
       </div>
     </div>
-    <button type="button" class="toast-close" (click)="dismissCelebration()" aria-label="Dismiss notification">
-      ×
-    </button>
   </div>
   <section class="closet-wrapper">
     <div class="closet-hero">

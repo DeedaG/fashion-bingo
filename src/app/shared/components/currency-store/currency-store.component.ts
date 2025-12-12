@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EconomyService } from '../../../core/services/economy.service';
 
@@ -11,9 +11,12 @@ import { EconomyService } from '../../../core/services/economy.service';
 })
 export class CurrencyStoreComponent {
   @Input() playerId = '';
+  @Output() balanceChange = new EventEmitter<{ coins: number; gems: number }>();
 
   statusMessage = '';
   loading = false;
+  coinsBalance = 0;
+  gemsBalance = 0;
 
   constructor(private readonly economyService: EconomyService) {}
 
@@ -36,6 +39,9 @@ export class CurrencyStoreComponent {
       next: econ => {
         this.loading = false;
         this.statusMessage = `Balance updated: ${econ.coins} coins · ${econ.gems} gems`;
+        this.coinsBalance = econ.coins;
+        this.gemsBalance = econ.gems;
+        this.balanceChange.emit({ coins: econ.coins, gems: econ.gems });
       },
       error: () => {
         this.loading = false;

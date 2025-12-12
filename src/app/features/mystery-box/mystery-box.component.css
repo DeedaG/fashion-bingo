@@ -218,6 +218,102 @@
   box-shadow: 0 14px 35px rgba(15, 29, 83, 0.15);
 }
 
+.box-reward-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 6, 26, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 2200;
+}
+
+.box-reward-modal {
+  position: relative;
+  width: min(520px, 90vw);
+  background: linear-gradient(135deg, #fff9ff, #f6e9ff);
+  border-radius: 28px;
+  padding: 36px 42px;
+  text-align: center;
+  box-shadow: 0 35px 110px rgba(12, 4, 34, 0.4);
+}
+
+.box-reward-modal h3 {
+  margin: 6px 0 8px;
+  font-size: 2rem;
+  color: #38164d;
+}
+
+.modal-label {
+  margin: 0;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #c0478f;
+}
+
+.modal-subtitle {
+  margin: 0 0 18px;
+  color: #6b3c53;
+  font-weight: 600;
+}
+
+.modal-art {
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 20px;
+  border-radius: 24px;
+  background: #fff;
+  border: 2px dashed rgba(192, 71, 143, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-art img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.modal-details {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  color: #513154;
+  font-weight: 500;
+}
+
+.modal-details li {
+  margin-bottom: 6px;
+}
+
+.modal-action {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 30px;
+  background: linear-gradient(135deg, #ff93c7, #ffa864);
+  color: #3c1230;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 16px 32px rgba(255, 147, 199, 0.4);
+}
+
+.box-reward-modal .modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: rgba(255, 255, 255, 0.75);
+  color: #7c3067;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
 .reward-card .rarity {
   font-size: 0.85rem;
   text-transform: uppercase;

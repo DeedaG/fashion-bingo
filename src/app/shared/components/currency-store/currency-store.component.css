@@ -1,0 +1,103 @@
+.currency-store {
+  margin: 20px auto;
+  max-width: 760px;
+}
+
+.store-card {
+  background-color: antiquewhite;
+  border-radius: 24px;
+  padding: 18px 24px;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+}
+
+.store-side {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.lady {
+  width: 50%;
+  float: left;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  color: #7a5a8a;
+  margin: 0;
+}
+
+.store-info h3 {
+  margin: 6px 0;
+  color: #2a133b;
+}
+
+.store-hero {
+  width: 120px;
+  display: block;
+  animation: currency-lady-glide 4s ease-in-out infinite;
+}
+
+.subtle {
+  margin: 0;
+  color: #665d70;
+}
+
+.store-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  width: 50%;
+  float: right;
+  padding-top: 20px;
+}
+
+.store-actions button {
+  border: none;
+  border-radius: 16px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff66aa, #ffb677);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 150px;
+  box-shadow: 0 12px 24px rgba(255, 102, 170, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.store-actions button small {
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.store-actions button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.status {
+  margin-top: 10px;
+  text-align: center;
+  color: #361830;
+  font-weight: 600;
+}
+
+.currency-store.disabled .store-card {
+  opacity: 0.5;
+  justify-content: center;
+}
+
+@keyframes currency-lady-glide {
+  0% { transform: translateX(8px); }
+  50% { transform: translateX(-8px); }
+  100% { transform: translateX(8px); }
+}
+

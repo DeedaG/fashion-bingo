@@ -17,16 +17,16 @@
         <p class="hero-kicker">Fashion Vault</p>
         <h2 style="color:white;">Wardrobe Control Center</h2>
         <p class="hero-subtitle" style="color:white;">
-          Spin the bingo wheel, unlock rewards, and hang them proudly on your neon rail.
+          Win bingo games, claim rewards, and hang them proudly in your closet.
         </p>
         <div class="closet-controls">
           <div class="control-chip">
             <span>Player ID</span>
             <strong>{{ displayPlayerLabel }}</strong>
           </div>
-          <button class="ghost-btn" (click)="loadCloset()" title="Refresh closet">
+          <!-- <button class="ghost-btn" (click)="loadCloset()" title="Refresh closet">
             Refresh Closet
-          </button>
+          </button> -->
           <button *ngIf="!isPremiumPlayer" class="premium-btn" (click)="upgradeToPremium()">
             Unlock Premium Closet
           </button>

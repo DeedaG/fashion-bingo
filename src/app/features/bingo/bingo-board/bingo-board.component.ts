@@ -6,11 +6,12 @@ import { PlayerService } from '../../../core/services/player.service';
 import { BoosterService } from '../../../core/services/booster.service';
 import { ClothingItem } from '../../../core/models/clothing-item.model';
 import { BoosterInventory } from '../../../core/models/booster-inventory.model';
+import { CurrencyStoreComponent } from '../../../shared/components/currency-store/currency-store.component';
 
 @Component({
   selector: 'app-bingo-board',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CurrencyStoreComponent],
   templateUrl: './bingo-board.component.html',
   styleUrls: ['./bingo-board.component.css']
 })
@@ -46,6 +47,7 @@ export class BingoBoardComponent implements OnInit {
   boosterInventory: BoosterInventory | null = null;
   boosterStatus = '';
   boosterLoading = false;
+  depositModalVisible = false;
 
   constructor(
     private bingoService: BingoService,
@@ -357,6 +359,18 @@ export class BingoBoardComponent implements OnInit {
     } else {
       setTimeout(scrollToTop, 0);
     }
+  }
+
+  openDepositModal(): void {
+    if (!this.playerId || this.playerId.trim().length === 0) {
+      this.lastActionMessage = 'Start a game to deposit funds.';
+      return;
+    }
+    this.depositModalVisible = true;
+  }
+
+  closeDepositModal(): void {
+    this.depositModalVisible = false;
   }
 
   // returns true if the card at cardIndex has a completed row/col/diagonal

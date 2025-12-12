@@ -1,0 +1,36 @@
+<section class="currency-store" *ngIf="playerId; else noPlayer">
+  <div class="store-card">
+    <div class="store-side">
+        <div class="lady">
+          <img 
+          src="/assets/beanie-lady.png" 
+          alt="" class="store-hero" />
+        </div>
+        <div class="store-actions">
+          <button type="button" (click)="buyCoins(500)" [disabled]="loading">
+            +500 Coins
+            <small>Best for Mystery Box</small>
+          </button>
+          <button type="button" (click)="buyGems(10)" [disabled]="loading">
+            +10 Gems
+            <small>Unlock Runway Pass premium</small>
+          </button>
+        </div>
+    </div>
+    <div class="store-info">
+      <p class="eyebrow">Runway Bank</p>
+      <h3>Top up your coins & gems</h3>
+      <p class="subtle">Deposit money here to fund the Mystery Box and Runway Pass.</p>
+    </div>
+    
+  </div>
+  <p class="status" *ngIf="statusMessage">{{ statusMessage }}</p>
+</section>
+
+<ng-template #noPlayer>
+  <section class="currency-store disabled">
+    <div class="store-card">
+      <h3>Start a game to unlock purchases.</h3>
+    </div>
+  </section>
+</ng-template>

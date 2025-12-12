@@ -115,7 +115,7 @@ export class StylePassComponent implements OnInit, OnChanges {
         this.loading = false;
       },
       error: err => {
-        this.statusMessage = this.parseError(err, 'Unable to load Style Pass right now.');
+        this.statusMessage = this.parseError(err, 'Unable to load Runway Pass right now.');
         this.loading = false;
       }
     });
@@ -123,7 +123,7 @@ export class StylePassComponent implements OnInit, OnChanges {
 
   private ensurePlayer(): boolean {
     if (!this.playerId || this.playerId.trim().length === 0) {
-      this.statusMessage = 'Start a game to participate in the Style Pass.';
+      this.statusMessage = 'Start a game to participate in the Runway Pass.';
       return false;
     }
     return true;

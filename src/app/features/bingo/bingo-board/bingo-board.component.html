@@ -8,23 +8,39 @@
     </div>
   </div>
 
+  <div class="daub-buttons">
+    <div class="daub-offer">
+      <button
+        class="powerup-btn"
+        (click)="activateFreeDaub()"
+        [disabled]="(boosterInventory?.freeDaubTokens ?? 0) === 0">
+        Free Daub
+        <br> ({{ boosterInventory?.freeDaubTokens ?? 0 }})
+      </button>
+    </div>
+    <div class="daub-offer">  
+      <button
+        class="powerup-btn"
+        [class.active]="autoDaubActive"
+        (click)="activateAutoDaub()"
+        [disabled]="(boosterInventory?.autoDaubBoosts ?? 0) === 0">
+        Auto Daub 
+        <br> (30s) ({{ boosterInventory?.autoDaubBoosts ?? 0 }})
+      </button>  
+    </div>  
+  </div>
+
   <div class="powerup-bar">
-    <button
-      class="powerup-btn"
-      (click)="activateFreeDaub()"
-      [disabled]="(boosterInventory?.freeDaubTokens ?? 0) === 0">
-      Free Daub ({{ boosterInventory?.freeDaubTokens ?? 0 }})
-    </button>
-
     <button class="powerup-btn" (click)="activateReveal()">Reveal 3</button>
+  </div>
 
-    <button
-      class="powerup-btn"
-      [class.active]="autoDaubActive"
-      (click)="activateAutoDaub()"
-      [disabled]="(boosterInventory?.autoDaubBoosts ?? 0) === 0">
-      Auto Daub (30s) ({{ boosterInventory?.autoDaubBoosts ?? 0 }})
-    </button>
+  <div class="daub-buttons">
+    <div class="daub-offer">
+      <button class="deposit-btn" type="button" (click)="openDepositModal()">Deposit Funds</button>
+    </div>
+    <div class="daub-offer">  
+      Bank Balance: 
+    </div>  
   </div>
 
   <div class="booster-shop" *ngIf="playerId">
@@ -39,7 +55,8 @@
         [disabled]="boosterLoading">
         Buy
       </button>
-    
+      </div>
+    <div class="booster-offer">
       <div>
         <p class="booster-name">Auto-Daub Boost</p>
         <p class="booster-cost">Cost: 1 gem</p>
@@ -64,7 +81,7 @@
 </div>
 
 <div class="history-box">
-  <p class="label">Previous Numbers</p>
+  <p class="label" style="color: black;">Previous Numbers</p>
   <div class="history-strip">
     <div *ngFor="let num of callHistory" class="history-ball">
       {{ num }}
@@ -146,5 +163,13 @@
     </div>
     <p class="reward-message">{{ rewardDeliveryMessage }}</p>
     <button class="win-btn" (click)="closeRewardModal()">Back to Bingo</button>
+  </div>
+</div>
+
+<div *ngIf="depositModalVisible" class="deposit-overlay">
+  <div class="deposit-modal">
+    <button class="modal-close" type="button" (click)="closeDepositModal()" aria-label="Close deposit funds modal">×</button>
+    <h3>Deposit Funds</h3>
+    <app-currency-store [playerId]="playerId"></app-currency-store>
   </div>
 </div>

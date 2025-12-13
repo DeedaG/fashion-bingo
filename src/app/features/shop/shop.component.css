@@ -7,25 +7,69 @@
 }
 
 .shop-header {
+  position: relative;
   margin-bottom: 24px;
   background-color: white;
-  border-radius: 28px;
-  padding: 32px;
+  border-radius: 18px;
+  padding: 16px 24px 24px;
+  padding-top: 56px;
   border: 1px solid rgba(128, 75, 31, 0.08);
   box-shadow: 0 20px 50px rgba(59, 34, 19, 0.1);
+  overflow: visible;
 }
 
-.shop-eyebrow {
+.shop-hero-track {
+  position: absolute;
+  top: -140px;
+  left: 0;
+  right: 0;
+  height: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.hero-walker {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 18px;
+  animation: walk-right-to-left 25s linear infinite;
+  position: absolute;
+  top: 75px;;
+  right: 0;
+  z-index: 2;
+}
+
+.hero-figure {
+  width: 100px;
+  height: auto;
+}
+
+.hero-banner {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 14px;
+  padding: 6px 12px;
+  border: 1px solid rgba(128, 75, 31, 0.08);
+  box-shadow: inset 0 0 0 2px rgba(255, 179, 108, 0.25);
+  min-width: 120px;
+  text-align: center;
+}
+
+.hero-banner .shop-eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.35em;
-  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  font-size: 0.6rem;
   color: #ffb36c;
   margin: 0 0 6px;
 }
 
 .shop-header h2 {
-  margin: 0 0 8px;
+  margin: 0;
   color: #472313;
+  white-space: nowrap;
+  font-size: 1.1rem;
 }
 
 .shop-copy {
@@ -109,7 +153,7 @@
   border: none;
   border-radius: 999px;
   padding: 8px 18px;
-  background: linear-gradient(120deg, #ff9ac6, #ffa97b);
+  background: #b48d6b;;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -119,4 +163,13 @@
 .offer-buy:disabled {
   opacity: 0.6;
   cursor: default;
+}
+
+@keyframes walk-right-to-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-220%);
+  }
 }
